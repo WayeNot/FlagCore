@@ -33,8 +33,8 @@ export default function Home() {
     const current = notifStyles[notif.type];
 
     const flags: Flag[] = [
-        { nbr: 1, name: "Nom de l'image", flag: "image.png", flag_format: "x", description: "Une image intéressante est caché dans le container. Quel est son nom exact ( avec extension )." },
-        { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "" },
+        { nbr: 1, name: "Nom de l'image", flag: "free-criquet.png", flag_format: "x", description: "Une image intéressante est caché dans le container. Quel est son nom exact ( avec extension )." },
+        { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé" },
         { nbr: 3, name: "Identité de la prochaine victime", flag: "Edvard_Doris", flag_format: "x_x", description: "Format du flag : Nom_Prénom" },
         { nbr: 4, name: "Ou habite t'elle ?", flag: "le-puy-en-velay", flag_format: "x", description: "" },
     ];
