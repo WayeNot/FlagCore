@@ -1,13 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 
-// Styles des notifications
-const notifStyles = {
-    success: { bg: "bg-green-500/20", text: "text-green-400", icon: "✔" },
-    error:   { bg: "bg-red-500/20", text: "text-red-400", icon: "✖" },
-    warning: { bg: "bg-yellow-500/20", text: "text-yellow-400", icon: "⚠" },
-};
-
 type NotifType = "success" | "error" | "warning";
 
 interface Notif {
@@ -25,6 +18,13 @@ interface Flag {
 }
 
 export default function Home() {
+    // Déplace notifStyles à l'intérieur du composant
+    const notifStyles = {
+        success: { bg: "bg-green-500/20", text: "text-green-400", icon: "✔" },
+        error:   { bg: "bg-red-500/20", text: "text-red-400", icon: "✖" },
+        warning: { bg: "bg-yellow-500/20", text: "text-yellow-400", icon: "⚠" },
+    };
+
     const [notif, setNotif] = useState<Notif>({
         display: false,
         message: "",
@@ -40,9 +40,7 @@ export default function Home() {
 
     useEffect(() => {
         if (notif.display) {
-            const timer = setTimeout(() => {
-                setNotif({ ...notif, display: false });
-            }, 5000);
+            const timer = setTimeout(() => setNotif({ ...notif, display: false }), 5000);
             return () => clearTimeout(timer);
         }
     }, [notif.display]);
@@ -50,13 +48,13 @@ export default function Home() {
     const handleValidate = (e: React.FormEvent) => {
         e.preventDefault();
 
-        if (currentFlag === "") {
+        if (!currentFlag) {
             setNotif({ display: true, message: "Aucun flag donné", type: "error" });
             return;
         }
 
         if (selectedFlag) {
-            if (currentFlag === "phishout{" + selectedFlag.flag + "}") {
+            if (currentFlag === `phishout{${selectedFlag.flag}}`) {
                 setNotif({ display: true, message: "Vous avez réussi ce flag", type: "success" });
                 setIsFind({ ...isFind, [selectedFlag.nbr]: true });
                 setSelectedFlag(null);
