@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaTimesCircle, FaExclamationTriangle } from "react-icons/fa";
+import { MdExitToApp } from "react-icons/md";
 
 type NotifType = "success" | "error" | "warning";
 
@@ -81,8 +82,16 @@ export default function Home() {
 
     return (
         <div className="w-screen bg-[#212529] h-screen">
+            <nav className="flex items-center justify-between p-3 mx-5">
+                <h1 className="text-center text-[30px] text-white/60 font-bold">CTF CyberLab</h1>
+                <div className="flex items-center gap-5 justify-center text-white/40">
+                    <p>Nos challenges</p>
+                    <p>Mon compte</p>
+                    <MdExitToApp/>
+                </div>
+            </nav>
             <div className="py-15 bg-gray-800 flex flex-col items-center justify-center gap-5">
-                <h1 className="text-center text-[30px] text-white/60 font-bold">CTF Phishout - CyberLab</h1>
+                <h2 className="text-white/60 text-[30px] italic">CTF PhishOut - CyberLab</h2>
                 <p className="text-center w-1/2 m-auto text-white/40">Vous faites partie du groupe spécial d’investigation de la gendarmerie. Depuis plusieurs jours, un réseau de hackers spécialisé dans la vente de kits clés en main automatisés pour créer et déployer des sites de phishing revendique de nombreuses attaques sur le sol français. Grâce au travail des équipes, vous avez réussi à identifier les têtes du réseau : Gérard, 34 ans, ancien développeur full stack reconverti dans le développement d’API le jour et chef du réseau la nuit. À ses côtés, Marin, 19 ans, passionné d’informatique depuis tout petit, et Rémy, 20 ans, également passionné d’informatique. À eux trois, ils forment un groupe très dangereux. D’après des fichiers récupérés sur l’un de leurs serveurs, ils préparent une attaque contre le responsable informatique d’une entreprise d’hébergement française.<br />Votre mission : récupérer les fichiers compromis et identifier quelle sera leur prochaine cible.</p>
                 <a target="_blank" className="border-2 p-2 rounded-[8px] text-white/60 hover:bg-white hover:text-black hover:border-white transition duration-500" href="DATA.zip">Ressource de départ</a>
             </div>
