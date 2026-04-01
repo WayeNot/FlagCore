@@ -33,11 +33,13 @@ export default function Home() {
     const current = notifStyles[notif.type];
 
     const flags: Flag[] = [
-        { nbr: 1, name: "Nom de l'image", flag: "image.png", flag_format: "x", description: "" },
+        { nbr: 1, name: "Nom de l'image", flag: "image.png", flag_format: "x", description: "Une image intéressante est caché dans le container. Quel est son nom exact ( avec extension )." },
         { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "" },
-        { nbr: 3, name: "Nom prénom de la prochaine victime", flag: "Edvard_Doris", flag_format: "x_x", description: "" },
-        { nbr: 4, name: "Ville de la victime", flag: "le-puy-en-velay", flag_format: "x", description: "" },
-    ]; const [isFind, setIsFind] = useState<Record<number, boolean>>({ 1: false, 2: false, 3: false });
+        { nbr: 3, name: "Identité de la prochaine victime", flag: "Edvard_Doris", flag_format: "x_x", description: "Format du flag : Nom_Prénom" },
+        { nbr: 4, name: "Ou habite t'elle ?", flag: "le-puy-en-velay", flag_format: "x", description: "" },
+    ];
+    
+    const [isFind, setIsFind] = useState<Record<number, boolean>>({ 1: false, 2: false, 3: false, 4: false });
 
     const [selectedFlag, setSelectedFlag] = useState<Flag | null>(null);
     const [currentFlag, setCurrentFlag] = useState("");
@@ -69,8 +71,6 @@ export default function Home() {
             }
         }
     };
-
-    console.log(flags);
 
     return (
         <div className="w-screen bg-[#212529] h-screen">
