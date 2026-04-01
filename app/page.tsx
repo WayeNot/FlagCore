@@ -33,10 +33,10 @@ export default function Home() {
     const current = notifStyles[notif.type];
 
     const flags: Flag[] = [
-        { nbr: 1, name: "Nom de l'image", flag: "free-criquet.png", flag_format: "x", description: "Une image intéressante est caché dans le container. Quel est son nom exact ( avec extension )." },
-        { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé" },
-        { nbr: 3, name: "Identité de la prochaine victime", flag: "Edvard_Doris", flag_format: "x_x", description: "Format du flag : Nom_Prénom" },
-        { nbr: 4, name: "Ou habite t'elle ?", flag: "le-puy-en-velay", flag_format: "x", description: "" },
+        { nbr: 1, name: "Nom de l'image", flag: "free-criquet.png", flag_format: "x", description: "Une image intéressante est cachée dans le container. Quel est son nom exact (avec l'extension) ?" },
+        { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé dans une image. Parviendrez-vous à le retrouver ?" },
+        { nbr: 3, name: "Identité de la prochaine victime", flag: "Edvard_Doris", flag_format: "x_x", description: "Arriverez-vous à retrouver l'identité de la prochaine victime avant qu'il ne soit trop tard ? \nFormat du flag : Nom_Prénom" },
+        { nbr: 4, name: "Où habite-t-elle ?", flag: "le-puy-en-velay", flag_format: "x", description: "Arriverez-vous à retrouver la ville où habite cette victime ?" },
     ];
     
     const [isFind, setIsFind] = useState<Record<number, boolean>>({ 1: false, 2: false, 3: false, 4: false });
@@ -76,22 +76,13 @@ export default function Home() {
         <div className="w-screen bg-[#212529] h-screen">
             <div className="py-15 bg-gray-800 flex flex-col items-center justify-center gap-5">
                 <h1 className="text-center text-[30px] font-bold">CTF Phishout - CyberLab</h1>
-                <p className="text-center w-1/2 m-auto text-white/40">
-                   Vous faites partie du groupe spécial d’investigation de la gendarmerie. Depuis plusieurs jours, un réseau de hackers spécialisé dans la vente de kits clés en main automatisés pour créer et déployer des sites de phishing revendique de nombreuses attaques sur le sol français. Grâce au travail des équipes, vous avez réussi à identifier les têtes du réseau : Gérard, 34 ans, ancien développeur full stack reconverti dans le développement d’API le jour et chef du réseau la nuit.
-À ses côtés, Marin, 19 ans, passionné d’informatique depuis tout petit, et Rémy, 20 ans, également passionné d’informatique. À eux trois, ils forment un groupe très dangereux.
-D’après des fichiers récupérés sur l’un de leurs serveurs, ils préparent une attaque contre le responsable informatique d’une entreprise d’hébergement française.
-<br>Votre mission : récupérer les fichiers compromis et identifier quelle sera leur prochaine cible.
-                </p>
-                <a target="_blank" className="border-2 p-2 rounded-[8px] hover:bg-white hover:text-black hover:border-white transition duration-500" href="informations.rar">Ressource de départ</a>
+                <p className="text-center w-1/2 m-auto text-white/40">Vous faites partie du groupe spécial d’investigation de la gendarmerie. Depuis plusieurs jours, un réseau de hackers spécialisé dans la vente de kits clés en main automatisés pour créer et déployer des sites de phishing revendique de nombreuses attaques sur le sol français. Grâce au travail des équipes, vous avez réussi à identifier les têtes du réseau : Gérard, 34 ans, ancien développeur full stack reconverti dans le développement d’API le jour et chef du réseau la nuit. À ses côtés, Marin, 19 ans, passionné d’informatique depuis tout petit, et Rémy, 20 ans, également passionné d’informatique. À eux trois, ils forment un groupe très dangereux. D’après des fichiers récupérés sur l’un de leurs serveurs, ils préparent une attaque contre le responsable informatique d’une entreprise d’hébergement française.<br/>Votre mission : récupérer les fichiers compromis et identifier quelle sera leur prochaine cible.</p>
+                <a target="_blank" className="border-2 p-2 rounded-[8px] hover:bg-white hover:text-black hover:border-white transition duration-500" href="DATA.zip">Ressource de départ</a>
             </div>
 
             <div className="py-15 flex items-center justify-center gap-5">
                 {flags.map((item) => (
-                    <div
-                        key={item.nbr}
-                        onClick={() => setSelectedFlag(item)}
-                        className={`px-5 py-7 w-1/5 text-center rounded-[8px] ${!isFind[item.nbr] ? "bg-red-500 hover:bg-red-800" : "bg-green-600 hover:bg-green-800"} transition duration-500 cursor-pointer font-bold`}
-                    >
+                    <div key={item.nbr} onClick={() => setSelectedFlag(item)} className={`px-5 py-7 w-1/5 text-center rounded-[8px] ${!isFind[item.nbr] ? "bg-red-500 hover:bg-red-800" : "bg-green-600 hover:bg-green-800"} transition duration-500 cursor-pointer font-bold`}>
                         <p>{item.name}</p>
                     </div>
                 ))}
