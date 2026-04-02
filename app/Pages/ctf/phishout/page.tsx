@@ -37,10 +37,10 @@ export default function Home() {
     const current = notifStyles[notif.type];
 
     const flags: Flag[] = [
-        { nbr: 1, name: "Nom de l'image", flag: "free-criquet.png", flag_format: "x", description: "Un fichier intéressante est cachée dans le container. Quel est son nom exact (avec l'extension) ?", hint: "Parfois, un mot de passe faible n'est pas suffisant.", isHintShow: false },
-        { nbr: 2, name: "Nom du compte", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé dans une image. Parviendrez-vous à le retrouver ?", hint: "L'équipe qui a saisi le serveur à découvert la présence d'un logiciel de stéganographie.", isHintShow: false },
+        { nbr: 1, name: "Nom de l'image ?", flag: "free-criquet.png", flag_format: "x", description: "Un fichier intéressante est cachée dans le container. Quel est son nom exact (avec l'extension) ?", hint: "Parfois, un mot de passe faible n'est pas suffisant.", isHintShow: false },
+        { nbr: 2, name: "Nom du compte ?", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé dans une image. Parviendrez-vous à le retrouver ?", hint: "L'équipe qui a saisi le serveur à découvert la présence d'un logiciel de stéganographie.", isHintShow: false },
         { nbr: 3, name: "Nom de l'audio ?", flag: "", flag_format: "x", description: "Un audio suspect a été identifié, a vous de le retrouver.", hint: "Concentrez vos recherches sur la plateforme SoundCloud", isHintShow: false },
-        { nbr: 4, name: "Identité de la prochaine victime", flag: "Edvard_Doris", flag_format: "Nom_Prénom", description: "Arriverez-vous à retrouver l'identité de la prochaine victime avant qu'il ne soit trop tard ?", hint: "Concentrez vos recherches sur la plateformes Reddit", isHintShow: false },
+        { nbr: 4, name: "Identité de la prochaine victime ?", flag: "Edvard_Doris", flag_format: "Nom_Prénom", description: "Arriverez-vous à retrouver l'identité de la prochaine victime avant qu'il ne soit trop tard ?", hint: "Concentrez vos recherches sur la plateformes Reddit", isHintShow: false },
         { nbr: 5, name: "Où habite-t-elle ?", flag: "le-puy-en-velay", flag_format: "x", description: "Arriverez-vous à retrouver la ville où habite cette victime ?", hint: "", isHintShow: false },
     ];
 
