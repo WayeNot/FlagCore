@@ -36,9 +36,9 @@ export default function Navbar() {
                 <button onClick={() => setMenuOpen(!menuOpen)} className="sm:hidden text-white text-2xl">☰</button>
 
                 <div className="hidden sm:flex items-center gap-5 text-white/40">
-                    <Link href="/Pages/home" className="hover:text-white/70 transition">Accueil</Link>
-                    <Link href="/Pages/challenges" className="hover:text-white/70 transition">Nos challenges</Link>
-                    <Link href="/Pages/accounts" className="hover:text-white/70 transition">Mon compte</Link>
+                    <Link href="/home" className="hover:text-white/70 transition">Accueil</Link>
+                    <Link href="/challenges" className="hover:text-white/70 transition">Nos challenges</Link>
+                    <Link href="/accounts" className="hover:text-white/70 transition">Mon compte</Link>
                     <MdExitToApp onClick={handleLogout} className="hover:text-red-400 cursor-pointer text-xl transition"/>
                 </div>
             </nav>
