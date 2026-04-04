@@ -1,9 +1,21 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { FaPlusSquare } from "react-icons/fa"
+import { MdAdminPanelSettings } from "react-icons/md"
+
+type User = {
+    user_id: number
+    username: string
+    email: string
+    password: string
+    role: string
+    created_at: string
+}
 
 export default function PatchNote({ show, setShow }: { show: boolean, setShow: (v: boolean) => void }) {
     const [paperState, setPaperState] = useState(0)
+    const [userSession, setUserSession] = useState<{ userData: User[] }>({ userData: [] })
 
     const patchnote = [
         { title: "05/04/2026", patch: [{ text: "Déconnexion fonctionnel" }, { text: "Création de compte terminé" }] },
@@ -15,6 +27,22 @@ export default function PatchNote({ show, setShow }: { show: boolean, setShow: (
         { title: "Login fonctionnel" },
         { title: "Création du panel admin" },
     ]
+
+    useEffect(() => {
+        async function getSession() {
+            const res = await fetch("/api/session", {
+                method: "GET",
+                headers: { "Content-Type": "application/json" },
+            })
+
+            if (!res.ok) {
+                console.error('Impossible de GET la session')
+                return
+            }
+            setUserSession(await res.json())
+        }
+        getSession()
+    }, [])
 
     useEffect(() => {
         const handleClick = (e: any) => {
@@ -34,7 +62,16 @@ export default function PatchNote({ show, setShow }: { show: boolean, setShow: (
                         <button onClick={() => setPaperState(0)} className={`${paperState === 0 ? "bg-[#2a2a3d]" : ""} rounded-md px-3 py-1 text-white hover:text-white/60 transition cursor-pointer`}>PatchNotes</button>
                         <button onClick={() => setPaperState(1)} className={`${paperState === 1 ? "bg-[#2a2a3d]" : ""} rounded-md px-3 py-1 text-white hover:text-white/60 transition cursor-pointer`}>Features</button>
                     </div>
-                    <button onClick={() => setShow(false)} className="text-gray-400 hover:text-white transition cursor-pointer">✕</button>
+                    <div>
+                        {userSession.userData?.[0]?.role === "owner" ? (
+                            <div className="flex items-center gap-3">
+                                <FaPlusSquare className="text-[22px] text-white/40 hover:text-white/70 transition duration-500 cursor-pointer"/>
+                                <button onClick={() => setShow(false)} className="text-gray-400 hover:text-white transition cursor-pointer">✕</button>
+                            </div>
+                        ) : (
+                            <button onClick={() => setShow(false)} className="text-gray-400 hover:text-white transition cursor-pointer">✕</button>
+                        )}
+                    </div>
                 </div>
 
                 <hr className="my-5 border-gray-600" />

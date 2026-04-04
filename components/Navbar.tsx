@@ -7,6 +7,7 @@ import { MdAdminPanelSettings, MdExitToApp } from "react-icons/md"
 import { useRouter } from "next/navigation"
 
 import PatchNote from "@/components/PatchNote"
+import AdminPanel from "./AdminPanel"
 
 type User = {
     user_id: number
@@ -21,6 +22,8 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
     const [showPaper, setShowPaper] = useState(false)
     const [userSession, setUserSession] = useState<{ userData: User[] }>({ userData: [] })
+
+    const [ showAdminPanel, setShowAdminPanel ] = useState(false)
 
     const router = useRouter()
 
@@ -50,10 +53,6 @@ export default function Navbar() {
         getSession()
     }, [])
 
-    useEffect(() => {
-        console.log(userSession.userData);
-    }, [userSession])
-
     return (
         <div>
             <nav className="flex items-center justify-between p-4 mx-3 sm:mx-5">
@@ -62,7 +61,7 @@ export default function Navbar() {
                     <h1 className="text-xl sm:text-2xl text-white/60 font-bold">CTF Platform</h1>
                     <FaNewspaper onClick={() => setShowPaper(true)} className="hover:text-white/70 cursor-pointer text-xl transition duration-300" />
                     {userSession.userData?.[0]?.role === "owner" && (
-                        <MdAdminPanelSettings className="text-red-500 font-bold text-[22px] hover:text-red-800 transition duration-500 cursor-pointer"/>
+                        <MdAdminPanelSettings onClick={() => setShowAdminPanel(true)} className="text-red-500 font-bold text-[22px] hover:text-red-800 transition duration-500 cursor-pointer"/>
                     )}
                 </div>
 
@@ -86,6 +85,7 @@ export default function Navbar() {
                     </div>
                 </div>
             )}
+            {showAdminPanel && <AdminPanel closePanel={() => setShowAdminPanel(false)}/>}
             <PatchNote show={showPaper} setShow={setShowPaper} />
         </div>
     )

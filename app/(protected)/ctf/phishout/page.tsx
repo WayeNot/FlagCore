@@ -1,6 +1,7 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
+import { useNotif } from "@/components/NotifProvider"
+import { useEffect, useState } from "react";
 import { FaLightbulb } from "react-icons/fa";
 
 interface Flag {
@@ -14,6 +15,7 @@ interface Flag {
 }
 
 export default function Home() {
+    const { showNotif } = useNotif()
     const flags: Flag[] = [
         { nbr: 1, name: "Nom de l'image ?", flag: "free-criquet.png", flag_format: "x", description: "Un fichier intéressante est cachée dans le container. Quel est son nom exact (avec l'extension) ?", hint: "Parfois, un mot de passe faible n'est pas suffisant.", isHintShow: false },
         { nbr: 2, name: "Nom du compte ?", flag: "criquet_sauvage4", flag_format: "x", description: "Un nom de compte est dissimulé dans une image. Parviendrez-vous à le retrouver ?", hint: "L'équipe qui a saisi le serveur à découvert la présence d'un logiciel de stéganographie.", isHintShow: false },
@@ -34,6 +36,55 @@ export default function Home() {
     const [hintsShown, setHintsShown] = useState<Record<number, boolean>>({});
     const [hasGetHint, setHasGetHint] = useState(false);
     const [hintTime, setHintTime] = useState(0);
+
+
+    useEffect(() => {
+        if (!hasGetHint) return;
+
+        const interval = setInterval(() => {
+            setHintTime(prev => {
+                if (prev <= 1) {
+                    clearInterval(interval);
+                    setHasGetHint(false);
+                    return 0;
+                }
+                return prev - 1;
+            });
+        }, 60000);
+
+        return () => clearInterval(interval);
+    }, [hasGetHint]);
+
+    const handleHint = () => {
+        if (!selectedFlag) return;
+
+        if (hintTime > 0) return showNotif(`Vous devez attendre ${hintTime} minute(s) avant de redemander !`, "error", 6000);
+
+        setHintsShown({ ...hintsShown, [selectedFlag.nbr]: true });
+        setHintTime(15);
+        setHasGetHint(true);
+        showNotif("Indice affiché !", "success", 4000);
+    };
+
+    const handleValidate = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!currentFlag) {
+            showNotif("Aucun flag donné", "error");
+            return;
+        }
+
+        if (selectedFlag) {
+            if (currentFlag === `phishout{${selectedFlag.flag}}`) {
+                showNotif("Vous avez réussi ce flag", "success");
+                setIsFind({ ...isFind, [selectedFlag.nbr]: true });
+                setSelectedFlag(null);
+                setCurrentFlag("");
+            } else {
+                showNotif("Mauvais flag", "error");
+            }
+        }
+    };
 
     return (
         <div className="flex flex-col min-h-screen bg-[#212529]">
@@ -61,7 +112,7 @@ export default function Home() {
                     <div className="w-full max-w-md bg-[#1e1e2f] border border-gray-700 rounded-2xl shadow-2xl p-6 animate-fadeIn">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-xl font-bold text-white">{selectedFlag.name}</h2>
-                            <button onClick={() => setSelectedFlag(null)} className="text-gray-400 hover:text-white transition cursor-pointer">✕</button>
+                            <button onClick={() => { setSelectedFlag(null); setCurrentFlag("")}} className="text-gray-400 hover:text-white transition duration-500 cursor-pointer">✕</button>
                         </div>
                         <div className="my-5 flex flex-col gap-3 text-white/40">
                             <p className="text-gray-300 text-[17px] leading-relaxed">{selectedFlag.description}</p>
@@ -70,12 +121,12 @@ export default function Home() {
                         <div className="flex items-center gap-3 mb-5">
                             <input value={currentFlag} onChange={(e) => setCurrentFlag(e.target.value)} type="text" placeholder={"phishout{" + selectedFlag.flag_format + "}"} className="flex-1 h-[40px] px-4 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" />
                             {selectedFlag.hint && (
-                                <button onClick={() => setHintsShown({ ...hintsShown, [selectedFlag.nbr]: !hintsShown[selectedFlag.nbr] })} className="h-[40px] px-3 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white hover:text-yellow-300 transition"><FaLightbulb /></button>
+                                <button onClick={handleHint} className="h-[40px] px-3 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white hover:text-yellow-300 transition duration-500 cursor-pointer"><FaLightbulb /></button>
                             )}
                         </div>
                         <div className="flex gap-3">
-                            <button onClick={() => {}} className="flex-1 bg-blue-600 hover:bg-blue-700 transition text-white py-2 rounded-lg font-medium cursor-pointer">Valider</button>
-                            <button onClick={() => setSelectedFlag(null)} className="flex-1 bg-gray-700 hover:bg-gray-600 transition text-white py-2 rounded-lg font-medium cursor-pointer">Fermer</button>
+                            <button onClick={(e) => handleValidate(e)} className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg font-medium cursor-pointer transition duration-500">Valider</button>
+                            <button onClick={() => setSelectedFlag(null)} className="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 rounded-lg font-medium cursor-pointer duration-500">Fermer</button>
                         </div>
                         {hintsShown[selectedFlag.nbr] && (
                             <div>

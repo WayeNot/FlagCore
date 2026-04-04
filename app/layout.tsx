@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import { NotifProvider } from "@/components/NotifProvider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -15,20 +15,17 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "CTF Platform",
-    description: "Plateforme de CTF créer par des B1 en cybersécurité | Nantes Ynov Campus",
+    description: "Plateforme de CTF créée par des B1 en cybersécurité | Nantes Ynov Campus",
     keywords: ["CTF", "cybersecurity", "hacking", "Ynov"],
-    // authors: [{ name:  }],
 };
 
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
             <body className="min-h-full flex flex-col">
-                {children}
+                <NotifProvider>
+                    {children}
+                </NotifProvider>
             </body>
         </html>
     );
