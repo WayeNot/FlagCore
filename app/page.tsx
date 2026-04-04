@@ -32,6 +32,7 @@ export default function Home() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: credentials.username, mail: credentials.mail, password: credentials.password })
         })
+        setModal({ ...modal, display: false })
     }
 
     return (
@@ -45,7 +46,7 @@ export default function Home() {
                 <a href="/Pages/ctf/phishout">Phishout</a>
                 <button onClick={() => setModal({ display: true, login: true })}>Connexion</button>
             </div>
-            {modal.display || !userSession || !userSession.userData || userSession.userData.length === 0 && (
+            {modal.display || !userSession && (
                 <div>
                     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
                         <div className="w-full max-w-md bg-[#1e1e2f] border border-gray-700 rounded-2xl shadow-2xl p-6 animate-fadeIn">

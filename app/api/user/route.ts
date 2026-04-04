@@ -36,9 +36,8 @@ export async function POST(req: Request) {
         const hashedPassword = await bcrypt.hash(password, 15);
         const sessionId = randomBytes(32).toString('hex')
 
-        const user = await sql`INSERT INTO users ( username, email, password ) VALUES ( ${username}, ${mail}, ${hashedPassword} ) RETURNING id`
-        const userId = user[0].id
-        await sql`INSERT INTO user_session ( session_id, user_id ) VALUES ( ${sessionId}, ${userId} )`
+        const user = await sql`INSERT INTO users ( username, email, password ) VALUES ( ${username}, ${mail}, ${hashedPassword} ) RETURNING user_id`
+        await sql`INSERT INTO user_session ( session_id, user_id ) VALUES ( ${sessionId}, ${user[0].user_id} )`
 
         const res = NextResponse.json({ success: true })
 

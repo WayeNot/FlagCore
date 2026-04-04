@@ -23,14 +23,13 @@ export default function Navbar() {
         return () => document.removeEventListener("click", handleClick)
     }, [])
 
-    const router = useRouter();
-
     const handleLogout = async (e: any) => {
         const res = await fetch("/api/session", {
             method: "DELETE",
         })
 
         if (res.ok) {
+            const router = useRouter();
             router.refresh()
         }
     }
@@ -38,7 +37,10 @@ export default function Navbar() {
     return (
         <div>
             <nav className="flex items-center justify-between p-4 mx-3 sm:mx-5">
-                <h1 className="text-xl sm:text-2xl text-white/60 font-bold">CTF CyberLab</h1>
+                <div className="flex items-center justify-center gap-3 text-white/40">
+                    <h1 className="text-xl sm:text-2xl text-white/60 font-bold">CTF CyberLab</h1>
+                    <FaNewspaper onClick={() => setShowPaper(!showPaper)} className="hover:text-white/70 cursor-pointer text-xl transition duration-500" />
+                </div>
 
                 <button onClick={() => setMenuOpen(!menuOpen)} className="sm:hidden text-white text-2xl">☰</button>
 
@@ -47,7 +49,6 @@ export default function Navbar() {
                     <Link href="/Pages/challenges" className="hover:text-white/70 cursor-pointer transition duration-500">Nos challenges</Link>
                     <Link href="/Pages/accounts" className="hover:text-white/70 cursor-pointer transition duration-500">Mon compte</Link>
                     <MdExitToApp onClick={handleLogout} className="hover:text-white/70 cursor-pointer text-xl transition duration-500" />
-                    <FaNewspaper onClick={() => setShowPaper(!showPaper)} className="hover:text-white/70 cursor-pointer text-xl transition duration-500" />
                 </div>
             </nav>
             {menuOpen && (
