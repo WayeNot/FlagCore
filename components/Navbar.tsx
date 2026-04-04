@@ -46,8 +46,8 @@ export default function Navbar() {
             {menuOpen && (
                 <div className="sm:hidden px-4 pb-4 animate-fadeIn">
                     <div className="flex flex-col gap-3">
-                        <Link href="/Pages/challenges"><button className="w-full text-left px-4 py-3 rounded-lg text-white/70 hover:bg-[#3a3a4d] transition">Nos challenges</button></Link>
-                        <Link href="/Pages/accounts"><button className="w-full text-left px-4 py-3 rounded-lg bg-[#2a2a3d] text-white/70 hover:bg-[#3a3a4d] transition">Mon compte</button></Link>
+                        <Link href="/challenges"><button className="w-full text-left px-4 py-3 rounded-lg text-white/70 hover:bg-[#3a3a4d] transition">Nos challenges</button></Link>
+                        <Link href="/accounts"><button className="w-full text-left px-4 py-3 rounded-lg bg-[#2a2a3d] text-white/70 hover:bg-[#3a3a4d] transition">Mon compte</button></Link>
                         <button onClick={handleLogout} className="w-full flex items-center gap-2 px-4 py-3 rounded-lg bg-red-500/20 text-red-400 hover:bg-red-500/30 transition"><MdExitToApp />Déconnexion</button>
                     </div>
                 </div>
