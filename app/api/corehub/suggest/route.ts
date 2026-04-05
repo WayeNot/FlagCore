@@ -12,8 +12,10 @@ export async function POST(req: Request) {
     if ( !user_id ) return NextResponse.json({ success: false, error: "Vous ne pouvez pas faire ceci !" }, { status: 400 })
     if ( !text ) return NextResponse.json({ success: false, error: "Aucune suggestion renseignée !" }, { status: 400 })
 
-    await sql`INSERT INTO suggest (user_id, suggest) VALUES (${user_id}, ${text})`
-    return NextResponse.json({ success: true })
+    const res = await sql`INSERT INTO suggest (user_id, suggest) VALUES (${user_id}, ${text}) RETURNING *`
+    console.log(res[0]);
+    
+    return NextResponse.json(res[0])
 }
 
 export async function DELETE(req: Request) {

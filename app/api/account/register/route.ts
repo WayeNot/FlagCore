@@ -11,7 +11,7 @@ export async function POST(req: Request) {
 
         if (!username || !mail || !password || typeof username !== "string" || typeof mail !== "string" || typeof password !== "string") return new Response("Missing fields", { status: 400 })
 
-        const hashedPassword = await bcrypt.hash(password, 15)
+        const hashedPassword = await bcrypt.hash(password, 6)
         const sessionId = generateSessionId()
 
         const user = await sql`INSERT INTO users ( username, email, password ) VALUES ( ${username}, ${mail}, ${hashedPassword} ) RETURNING user_id`

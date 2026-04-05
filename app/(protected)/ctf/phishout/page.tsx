@@ -112,9 +112,9 @@ export default function Home() {
                             <p>{"Format du flag : phishout{" + selectedFlag.flag_format + "}"}</p>
                         </div>
                         <div className="flex items-center gap-3 mb-5">
-                            <input value={currentFlag} onChange={(e) => setCurrentFlag(e.target.value)} type="text" placeholder={"phishout{" + selectedFlag.flag_format + "}"} className="flex-1 h-[40px] px-4 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" />
+                            <input value={currentFlag} onChange={(e) => setCurrentFlag(e.target.value)} type="text" placeholder={"phishout{" + selectedFlag.flag_format + "}"} className="flex-1 h-10 px-4 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm sm:text-base" />
                             {selectedFlag.hint && (
-                                <button onClick={handleHint} className="h-[40px] px-3 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white hover:text-yellow-300 transition duration-500 cursor-pointer"><FaLightbulb /></button>
+                                <button onClick={handleHint} className="h-10 px-3 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white hover:text-yellow-300 transition duration-500 cursor-pointer"><FaLightbulb /></button>
                             )}
                         </div>
                         <div className="flex gap-3">
