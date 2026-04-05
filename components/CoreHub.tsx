@@ -378,6 +378,9 @@ export default function CoreHub({ show, setShow }: { show: boolean, setShow: (v:
                                 <FaPlusSquare onClick={() => setAddSuggest(true)} className="text-[22px] text-white/40 hover:text-white/70 transition duration-500 cursor-pointer" />
                             </div>
                             <div className="flex flex-col items-center gap-3 w-full">
+                                {allSuggest.length === 0 && (
+                                    <h2 className="flex flex-col gap-2 w-full text-white/80 p-2 rounded-lg bg-[#2a2a3d] border border-gray-600">Aucune suggestion pour le moment !</h2>
+                                )}
                                 {allSuggest.map((el, i) => (
                                     <div key={i} className="w-full text-white/80 px-4 py-3 rounded-lg bg-[#2a2a3d] border border-gray-600 flex items-center justify-between">
                                         <div className="flex flex-col gap-1">
