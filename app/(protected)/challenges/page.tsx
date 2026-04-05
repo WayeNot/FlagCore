@@ -13,8 +13,8 @@ export default function Home() {
     return (
         <div>
             <Navbar />
-            {challenges.map((el) => (
-                <div onClick={() => router.push(`/ctf${el.link}`)} className="p-4 m-8 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">
+            {challenges.map((el, i) => (
+                <div key={i} onClick={() => router.push(`/ctf${el.link}`)} className="p-4 m-8 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">
                     <p>{el.title}</p>
                 </div>
             ))}
