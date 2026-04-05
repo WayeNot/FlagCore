@@ -357,6 +357,9 @@ export default function CoreHub({ show, setShow }: { show: boolean, setShow: (v:
                                 )}
                             </div>
                             <div className="flex flex-col items-center gap-3 w-full">
+                                {allFeatures.length === 0 && (
+                                    <h2 className="flex flex-col gap-2 w-full text-white/80 p-2 rounded-lg bg-[#2a2a3d] border border-gray-600">Aucune feature pour le moment !</h2>
+                                )}
                                 {allFeatures.map((el, i) => (
                                     <div key={i} className="w-full text-white/80 px-4 py-3 rounded-lg bg-[#2a2a3d] border border-gray-600 flex items-center justify-between"><p>⏳ {el.feature}</p>
                                         {userSession.userData?.[0]?.role === "owner" && (
