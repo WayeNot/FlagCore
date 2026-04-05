@@ -336,8 +336,8 @@ export default function CoreHub({ show, setShow }: { show: boolean, setShow: (v:
                                 )}
                                 {getGroupedPatchNote(patchNote).map(({ date, features }) => (
                                     <div key={date} className="w-full flex flex-col gap-2">
-                                        <h3 className="text-md font-semibold text-white/90 px-4 py-2 rounded-lg bg-[#2a2a3d] border border-gray-600">Patchnote du {date}</h3>
-                                        <div className="flex flex-col gap-2 w-full text-white/80 px-6 py-2 rounded-lg bg-[#2a2a3d] border border-gray-600">
+                                        <div className="flex flex-col gap-2 w-full text-white/80 p-2 rounded-lg bg-[#2a2a3d] border border-gray-600">
+                                            <h2 className="text-[20px] text-white/40 underline italic font-bold">Patchnote du {date}</h2>
                                             {features.map((feature, i) => (
                                                 <p key={i}>✔️ {feature}</p>
                                             ))}
@@ -360,7 +360,7 @@ export default function CoreHub({ show, setShow }: { show: boolean, setShow: (v:
                                 {allFeatures.map((el, i) => (
                                     <div key={i} className="w-full text-white/80 px-4 py-3 rounded-lg bg-[#2a2a3d] border border-gray-600 flex items-center justify-between"><p>⏳ {el.feature}</p>
                                         {userSession.userData?.[0]?.role === "owner" && (
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex items-center gap-1">
                                                 <div onClick={() => handleFinishFeature(el.id, el.feature)} className="hover:bg-green-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><FcAcceptDatabase className="text-[25px]" /></div>
                                                 <div onClick={() => handleRemoveFeature(el.id)} className="hover:bg-red-500 hover:text-white text-red-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><CiCircleRemove className="text-[25px]" /></div>
                                             </div>
@@ -385,12 +385,14 @@ export default function CoreHub({ show, setShow }: { show: boolean, setShow: (v:
                                             <p className="text-[12px]">@{el.username}</p>
                                         </div>
 
-                                        {(userSession.userData?.[0]?.role === "owner" || userSession.userData?.[0]?.user_id === el.user_id) && (
-                                            <div className="flex items-center gap-2">
+                                        <div className="flex items-center gap-1">
+                                            {userSession.userData?.[0]?.role === "owner" && (
                                                 <div onClick={() => handleAcceptSuggest(el.id, el.suggest)} className="hover:bg-green-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><FcAcceptDatabase className="text-[25px]" /></div>
+                                            )}
+                                            {(userSession.userData?.[0]?.role === "owner" || userSession.userData?.[0]?.user_id === el.user_id) && (
                                                 <div onClick={() => handleDeleteSuggest(el.id)} className="hover:bg-red-500 hover:text-white text-red-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><CiCircleRemove className="text-[25px]" /></div>
-                                            </div>
-                                        )}
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>
