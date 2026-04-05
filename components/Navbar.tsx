@@ -18,7 +18,7 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
     const [showPaper, setShowPaper] = useState(false)
 
-    const [userSession, setUserSession] = useState<{ userData: User[] }>({ userData: [] })
+    const [userSession, setUserSession] = useState<{ userData: User | null }>({ userData: null })
     const [sessionLoaded, setSessionLoaded] = useState(false)
 
     const [showAdminPanel, setShowAdminPanel] = useState(false)
@@ -40,21 +40,13 @@ export default function Navbar() {
     useEffect(() => {
         if (sessionLoaded) return
         async function getSession() {
-            const res = await fetch("/api/session", {
-                method: "GET",
-                headers: { "Content-Type": "application/json" },
-            })
-
-            if (!res.ok) {
-                const err = await res.text()
-                showNotif(err, "error");
-                return
-            }
-            setUserSession(await res.json())
+            const res = await fetch("/api/session")
+            const data = await res.json()
+            setUserSession(data)
+            setSessionLoaded(true)
         }
 
         getSession()
-        setSessionLoaded(true)
     }, [])
 
     useEffect(() => {
@@ -187,6 +179,7 @@ export default function Navbar() {
 
     const handleSuggest = async (e: React.FormEvent) => {
         e.preventDefault();
+        
         if (!suggestText) {
             showNotif("Veuillez rentrer du text !")
             return
@@ -194,7 +187,7 @@ export default function Navbar() {
         const res = await fetch("/api/corehub/suggest", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id: userSession.userData?.[0]?.user_id, text: suggestText })
+            body: JSON.stringify({ user_id: userSession.userData?.user_id, text: suggestText })
         })
 
         if (!res.ok) {
@@ -205,7 +198,7 @@ export default function Navbar() {
 
         const newSuggest = await res.json()
 
-        setAllSuggest(prev => [...prev, { created_at: newSuggest.created_at, id: newSuggest.id, suggest: newSuggest.suggest, user_id: newSuggest.user_id, username: userSession.userData?.[0]?.username }])
+        setAllSuggest(prev => [...prev, { created_at: newSuggest.created_at, id: newSuggest.id, suggest: newSuggest.suggest, user_id: newSuggest.user_id, username: userSession.userData?.username || "Unknown" }])
 
         setAddSuggest(false)
         setSuggestText("")
@@ -295,7 +288,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-3 text-white/40">
                     <h1 className="text-xl h-fit sm:text-2xl text-white/60 font-bold">FlagCore</h1>
                     <FaNewspaper onClick={() => setShowPaper(true)} className="hover:text-white/70 cursor-pointer text-xl transition duration-500" />
-                    {userSession.userData?.[0]?.role === "owner" && (
+                    {userSession.userData?.role === "owner" && (
                         <MdAdminPanelSettings onClick={() => setShowAdminPanel(true)} className="text-red-500 font-bold text-[22px] hover:text-red-800 transition duration-500 cursor-pointer" />
                     )}
                 </div>
@@ -361,7 +354,7 @@ export default function Navbar() {
                                 <div className="w-full">
                                     <div className="flex items-center justify-between mb-2">
                                         <h2 className="text-lg font-bold text-white mb-2">Features en cours de développement</h2>
-                                        {userSession.userData?.[0]?.role === "owner" && (
+                                        {userSession.userData?.role === "owner" && (
                                             <FaPlusSquare onClick={() => setAddFeatures(true)} className="text-[22px] text-white/40 hover:text-white/70 transition duration-500 cursor-pointer" />
                                         )}
                                     </div>
@@ -371,7 +364,7 @@ export default function Navbar() {
                                         )}
                                         {allFeatures.map((el) => (
                                             <div key={el.id} className="w-full text-white/80 px-4 py-3 rounded-lg bg-[#2a2a3d] border border-gray-600 flex items-center justify-between"><p>⏳ {el.feature}</p>
-                                                {userSession.userData?.[0]?.role === "owner" && (
+                                                {userSession.userData?.role === "owner" && (
                                                     <div className="flex items-center gap-1">
                                                         <div onClick={() => handleFinishFeature(el.id, el.feature)} className="hover:bg-green-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><FcAcceptDatabase className="text-[25px]" /></div>
                                                         <div onClick={() => handleRemoveFeature(el.id)} className="hover:bg-red-500 hover:text-white text-red-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><CiCircleRemove className="text-[25px]" /></div>
@@ -401,10 +394,10 @@ export default function Navbar() {
                                                 </div>
 
                                                 <div className="flex items-center gap-1">
-                                                    {userSession.userData?.[0]?.role === "owner" && (
+                                                    {userSession.userData?.role === "owner" && (
                                                         <div onClick={() => handleAcceptSuggest(el.id, el.suggest)} className="hover:bg-green-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><FcAcceptDatabase className="text-[25px]" /></div>
                                                     )}
-                                                    {(userSession.userData?.[0]?.role === "owner" || userSession.userData?.[0]?.user_id === el.user_id) && (
+                                                    {(userSession.userData?.role === "owner" || userSession.userData?.user_id === el.user_id) && (
                                                         <div onClick={() => handleDeleteSuggest(el.id)} className="hover:bg-red-500 hover:text-white text-red-500 transition duration-500 cursor-pointer rounded-[5px] p-2"><CiCircleRemove className="text-[25px]" /></div>
                                                     )}
                                                 </div>
