@@ -35,7 +35,7 @@ export default function Home() {
             showNotif(err, "error");
             return
         }
-        router.push("/home")
+        router.push("/")
     }
 
     const handleRedirect = () => {

@@ -62,7 +62,7 @@ export default function Page() {
                     <p className="w-fit px-4 py-2 rounded-lg bg-[#2a2a3d] border border-gray-600 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 flex items-center justify-center gap-3"><span className="text-green-600"><CiCircleCheck /></span>Vous avez déjà trouvé le flag ! ( {`${guesstheplace?.title}{${guesstheplace?.flag}}`} )</p>
                 )}
                 <div className='w-fit'>
-                    <h2 className="text-white/60 text-xl sm:text-3xl italic text-center">Guess The Place - {guesstheplace?.title}</h2>
+                    <h2 className="text-white/60 text-xl sm:text-3xl italic text-center">GEOINT - {guesstheplace?.title}</h2>
                     <p className='text-center my-2 text-white/40'>Difficulté : {guesstheplace?.difficulty}</p>
                     <hr className="w-full text-white my-3" />
                 </div>

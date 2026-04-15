@@ -131,7 +131,7 @@ export default function Home() {
             <Navbar />
             <div className="flex items-center gap-5 m-8">
                 <button onClick={() => setPanelTab(0)} className={`${panelTab === 0 ? "text-orange-400" : "text-white/40"} rounded-md px-3 py-1 hover:text-white/60 transition cursor-pointer transition duration-500 bg-[#2a2a3d]`}>🚩 Nos CTF</button>
-                <button onClick={() => getGuessThePlace()} className={`${panelTab === 1 ? "text-orange-400" : "text-white/40"} rounded-md px-3 py-1 hover:text-white/60 transition cursor-pointer transition duration-500 bg-[#2a2a3d]`}>📍 Guess The Place</button>
+                <button onClick={() => getGuessThePlace()} className={`${panelTab === 1 ? "text-orange-400" : "text-white/40"} rounded-md px-3 py-1 hover:text-white/60 transition cursor-pointer transition duration-500 bg-[#2a2a3d]`}>📍 GEOINT</button>
             </div>
             {panelTab === 0 && (
                 <div>
@@ -296,7 +296,7 @@ export default function Home() {
                         <div className="w-full flex flex-col gap-3">
                             <h2 className="text-white/50">Difficulté : <span className="font-bold text-white/40">Facile</span></h2>
                             {!easyGuessThePlace || easyGuessThePlace.length === 0 ? (
-                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 hover:text-red-500/80 hover:bg-white/40 rounded-[7px] w-fit transition duration-500 cursor-pointer">Aucun Guess The Place en difficulté Facile pour le moment !</h2>
+                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 rounded-[7px] w-fit transition duration-500">Aucun challenge GEOINT difficulté Facile pour le moment !</h2>
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {easyGuessThePlace.map((v, k) => (
@@ -308,7 +308,7 @@ export default function Home() {
                         <div className="w-full flex flex-col gap-3">
                             <h2 className="text-white/50">Difficulté : <span className="font-bold text-white/40">Intermédiaire</span></h2>
                             {!intermediaireGuessThePlace || intermediaireGuessThePlace.length === 0 ? (
-                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 hover:text-red-500/80 hover:bg-white/40 rounded-[7px] w-fit transition duration-500 cursor-pointer">Aucun Guess The Place en difficulté Intermédiaire pour le moment !</h2>
+                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 rounded-[7px] w-fit transition duration-500">Aucun challenge GEOINT difficulté Intermédiaire pour le moment !</h2>
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {intermediaireGuessThePlace.map((v, k) => (
@@ -320,7 +320,7 @@ export default function Home() {
                         <div className="w-full flex flex-col gap-3">
                             <h2 className="text-white/50">Difficulté : <span className="font-bold text-white/40">Avancé</span></h2>
                             {!advancedGuessThePlace || advancedGuessThePlace.length === 0 ? (
-                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 hover:text-red-500/80 hover:bg-white/40 rounded-[7px] w-fit transition duration-500 cursor-pointer">Aucun Guess The Place en difficulté Avancé pour le moment !</h2>
+                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 rounded-[7px] w-fit transition duration-500">Aucun challenge GEOINT difficulté Avancé pour le moment !</h2>
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {advancedGuessThePlace.map((v, k) => (
@@ -332,7 +332,7 @@ export default function Home() {
                         <div className="w-full flex flex-col gap-3">
                             <h2 className="text-white/50">Difficulté : <span className="font-bold text-white/40">Expert</span></h2>
                             {!expertGuessThePlace || expertGuessThePlace.length === 0 ? (
-                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 hover:text-red-500/80 hover:bg-white/40 rounded-[7px] w-fit transition duration-500 cursor-pointer">Aucun Guess The Place en difficulté Expert pour le moment !</h2>
+                                <h2 className="p-4 border border-gray-600 text-center text-red-500/40 rounded-[7px] w-fit transition duration-500">Aucun challenge GEOINT difficulté Expert pour le moment !</h2>
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {expertGuessThePlace.map((v, k) => (

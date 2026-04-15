@@ -25,7 +25,7 @@ export default function Home() {
             return
         }
 
-        router.push("/home")
+        router.push("/")
     }
 
     const handleRedirect = () => {

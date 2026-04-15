@@ -6,7 +6,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="w-full flex flex-col items-center justify-center gap-3 sm:gap-5 text-white/40 text-xs sm:text-sm px-4 py-5 border-t border-gray-700/50 bg-[#1e1e2f]/50 backdrop-blur-md mt-auto">
+        <footer className="w-full flex flex-col items-center justify-center gap-3 sm:gap-5 text-white/40 text-xs sm:text-sm px-4 py-5 border-t border-gray-700/50 backdrop-blur-md mt-auto">
             <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-5">
                 {owners.map((el) => (
                     <a key={el.name} className="hover:text-white/80 transition duration-500 hover:underline" target="_blank" href={el.linkedin}>{el.name}</a>
