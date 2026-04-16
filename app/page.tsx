@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar.tsx";
+import Navbar from "@/components/Navbar";
 import { User } from "@/lib/types.js";
 import { motion } from "motion/react"
 
