@@ -24,6 +24,10 @@ export default function Home() {
         getSession()
     }, [])
 
+    useEffect(() => {
+        console.log(userSession);
+    }, [userSession])
+
     return (
         <div>
             <Navbar />
