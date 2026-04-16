@@ -47,7 +47,7 @@ export default function Page() {
 
     const handleValidate = async () => {
         if (currentFlag === `${guesstheplace?.title}{${guesstheplace?.flag}}`) {
-            const req = await fetch("/api/guesstheplace")
+            const req = await fetch("/api/challenges/guesstheplace")
             showNotif("GG ! Vous avez trouvé le flag !", "success")
             setCurrentFlag("")
             setIsFlagFind(true)

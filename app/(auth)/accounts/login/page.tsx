@@ -13,7 +13,7 @@ export default function Home() {
 
     const handleLogin = async (e: any) => {
         e.preventDefault();
-        const res = await fetch("/api/account/login", {
+        const res = await fetch("/api/auth/account/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: credentials.username, password: credentials.password })

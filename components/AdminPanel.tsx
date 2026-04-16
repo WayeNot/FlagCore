@@ -13,7 +13,7 @@ export default function AdminPanel({ closePanel }: { closePanel: () => void }) {
     const [editUser, setEditUser] = useState<number | null>(null)
 
     const getAllUser = async () => {
-        const res = await fetch("/api/users", {
+        const res = await fetch("/api/auth/users", {
             method: "GET",
             headers: { "Content-Type": "application/json" },
         })

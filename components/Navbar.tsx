@@ -40,7 +40,7 @@ export default function Navbar() {
     useEffect(() => {
         if (sessionLoaded) return
         async function getSession() {
-            const res = await fetch("/api/session")
+            const res = await fetch("/api/auth/session")
             const data = await res.json()
             setUserSession(data)
             setSessionLoaded(true)
@@ -63,7 +63,7 @@ export default function Navbar() {
     }, [])
 
     const handleLogout = async () => {
-        const res = await fetch("/api/session", {
+        const res = await fetch("/api/auth/session", {
             method: "DELETE",
         })
 

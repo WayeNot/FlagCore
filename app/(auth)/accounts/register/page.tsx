@@ -24,7 +24,7 @@ export default function Home() {
     const handleRegister = async (e: any) => {
         e.preventDefault();
         if (!validateEmail()) return showNotif("Mauvais format d'adresse mail !", "error");
-        const res = await fetch("/api/account/register", {
+        const res = await fetch("/api/auth/account/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username: credentials.username, mail: credentials.mail, password: credentials.password })

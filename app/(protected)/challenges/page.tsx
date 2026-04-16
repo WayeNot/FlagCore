@@ -36,7 +36,7 @@ export default function Home() {
     const [addChallenge, setAddChallenge] = useState(false)
     const [allChallenges, setAllChallenges] = useState<challenges[]>([])
     const [settingsBuilder, setSettingsBuilder] = useState({ displayDifficulty: false, displayCategory: false, displayMaxAttempt: false, displayCreateFlags: false })
-    const [builderValues, setBuilderValues] = useState({ name: "", desc: "", difficulty: "", category: "", flag_format: "", max_attempt: 0, complet_ennounce: "", file_to_download: "" })
+    const [builderValues, setBuilderValues] = useState({ name: "", description: "", difficulty: "", category: "", flag_format: "", max_attempt: 0, file_to_download: "" })
     const [listFlag, setListFlag] = useState<flag_list[]>([])
     const [newFlag, setNewFlag] = useState({ title: "", description: "", flag: "", format: "", indice: "" })
 
@@ -50,7 +50,7 @@ export default function Home() {
     useEffect(() => {
         if (sessionLoaded) return
         async function getSession() {
-            const res = await fetch("/api/session")
+            const res = await fetch("/api/auth/session")
             const data = await res.json()
             setUserSession(data)
             setSessionLoaded(true)
@@ -75,7 +75,7 @@ export default function Home() {
 
     useEffect(() => {
         const getChallenges = async () => {
-            const res = await fetch("/api/ctf", {
+            const res = await fetch("/api/challenges/ctf", {
                 method: "GET"
             })
             if (!res.ok) {
@@ -89,7 +89,7 @@ export default function Home() {
 
     const getGuessThePlace = async () => {
         setPanelTab(1)
-        const res = await fetch("/api/guessThePlace", {
+        const res = await fetch("/api/challenges/guessThePlace", {
             method: "GET",
         })
         if (!res.ok) {
@@ -107,7 +107,7 @@ export default function Home() {
     };
 
     const createGuessThePlace = async () => {
-        const req = await fetch("/api/guessThePlace", {
+        const req = await fetch("/api/challenges/guessThePlace", {
             method: "POST",
             body: JSON.stringify(guessThePlaceBuilder)
         })
@@ -125,6 +125,21 @@ export default function Home() {
     const intermediaireGuessThePlace = guessThePlace?.filter(el => el.difficulty === "Intermédiaire")
     const advancedGuessThePlace = guessThePlace?.filter(el => el.difficulty === "Avancé")
     const expertGuessThePlace = guessThePlace?.filter(el => el.difficulty === "Expert")
+
+    const postCtf = async () => {
+        console.log(builderValues);
+        
+        const res = await fetch("/api/challenges/ctf", {
+            method: "POST",
+            body: JSON.stringify(builderValues)
+        })
+        if (!res.ok) {
+            showNotif(await res.text(), "error")
+            return
+        }
+        setSettingsBuilder({ ...settingsBuilder, displayMaxAttempt: false }); 
+        setBuilderValues({ name: "", description: "", difficulty: "", category: "", flag_format: "", max_attempt: 0, file_to_download: "" })
+    }
 
     return (
         <div>
@@ -155,7 +170,7 @@ export default function Home() {
                                     <div className="flex items-center flex-col gap-3">
                                         <div className="w-full flex items-center gap-2 justify-between">
                                             <input value={builderValues.name} onChange={(e) => setBuilderValues({ ...builderValues, name: e.target.value })} className={`border-2 ${builderValues.name ? "border-green-700/40" : "border-red-500/40"} rounded-[8px] w-1/2 text-white/80 p-[6px]`} type="text" placeholder="Nom du CTF" />
-                                            <input value={builderValues.desc} onChange={(e) => setBuilderValues({ ...builderValues, desc: e.target.value })} className={`border-2 ${builderValues.desc ? "border-green-700/40" : "border-red-500/40"} rounded-[8px] w-1/2 text-white/80 p-[6px]`} type="text" placeholder="Description du CTF" />
+                                            <input value={builderValues.description} onChange={(e) => setBuilderValues({ ...builderValues, description: e.target.value })} className={`border-2 ${builderValues.description ? "border-green-700/40" : "border-red-500/40"} rounded-[8px] w-1/2 text-white/80 p-[6px]`} type="text" placeholder="Description du CTF" />
                                         </div>
                                         <hr className="text-white/40 my-5 w-1/2 m-auto" />
                                         <div className="w-full flex items-center gap-2 justify-between">
@@ -190,17 +205,16 @@ export default function Home() {
                                         <hr className="text-white/40 my-5 w-1/2 m-auto" />
                                         <h2 className="text-xl font-bold text-white">Contenu du challenge</h2>
                                         <div className="w-full flex items-center gap-2 justify-between">
-                                            <input value={builderValues.complet_ennounce} onChange={(e) => setBuilderValues({ ...builderValues, complet_ennounce: e.target.value })} className={`border-2 ${builderValues.complet_ennounce ? "border-green-700/40" : "border-red-500/40"} rounded-[8px] w-1/2 text-white/80 p-[6px]`} type="text" placeholder="Énoncé complet du CTF" />
                                             <input value={builderValues.file_to_download} onChange={(e) => setBuilderValues({ ...builderValues, file_to_download: e.target.value })} className={`border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px]`} type="text" placeholder="Dossier à télécharger (.zip )" />
                                         </div>
                                         <button onClick={() => setSettingsBuilder({ ...settingsBuilder, displayCreateFlags: true })} className="flex items-center justify-center gap-2 border-2 border-white/40 rounded-lg w-full text-white/80 p-1.5 transition duration-500 cursor-pointer hover:text-white/60 hover:border-white/20 text-[13px]">Création des flags<BsArrowRightCircle /></button>
                                         <hr className="text-white/40 my-5 w-1/2 m-auto" />
                                         <div className="w-2/3 flex items-center gap-2">
-                                            <button onClick={() => setSettingsBuilder({ ...settingsBuilder, displayMaxAttempt: false })} className="border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px] hover:bg-red-700 cursor-pointer transition duration-500">Annuler</button>
-                                            {(!builderValues.name || !builderValues.desc || !builderValues.max_attempt || !builderValues.flag_format || !builderValues.difficulty || !builderValues.complet_ennounce || !builderValues.category) ? (
+                                            <button onClick={() => { setAddChallenge(false); setBuilderValues({ name: "", description: "", difficulty: "", category: "", flag_format: "", max_attempt: 0, file_to_download: ""}) }} className="border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px] hover:bg-red-700 cursor-pointer transition duration-500">Annuler</button>
+                                            {(!builderValues.name || !builderValues.description || !builderValues.difficulty || !builderValues.category || !builderValues.flag_format || !builderValues.max_attempt) ? (
                                                 <button className="border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px] bg-red-800 hover:bg-red-600 transition duration-500 cursor-not-allowed">Créer</button>
                                             ) : (
-                                                <button onClick={() => { setSettingsBuilder({ ...settingsBuilder, displayMaxAttempt: false }); setBuilderValues({ name: "", desc: "", difficulty: "", category: "", flag_format: "", max_attempt: 0, complet_ennounce: "", file_to_download: "" }) }} className="border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px] hover:bg-green-700 cursor-pointer transition duration-500">Créer</button>
+                                                <button onClick={() => postCtf()} className="border-2 border-white/40 rounded-[8px] w-1/2 text-white/80 p-[6px] hover:bg-green-700 cursor-pointer transition duration-500">Créer</button>
                                             )}
                                         </div>
                                     </div>
@@ -210,15 +224,12 @@ export default function Home() {
                                     <hr className="text-white/40 my-5 w-1/2 m-auto" />
                                     <div className="text-white/70 flex flex-col gap-3">
                                         <p><span className="text-white font-bold">Nom :</span> {builderValues.name || "N/A"}</p>
-                                        <p><span className="text-white font-bold">Description :</span> {builderValues.desc || "N/A"}</p>
+                                        <p><span className="text-white font-bold">Description :</span> {builderValues.description || "N/A"}</p>
                                         <p><span className="text-white font-bold">Difficulté :</span> {builderValues.difficulty || "N/A"}</p>
                                         <p><span className="text-white font-bold">Catégorie :</span> {builderValues.category || "N/A"}</p>
                                         <p><span className="text-white font-bold">Format :</span>{builderValues.flag_format || "N/A"}</p>
                                         <p><span className="text-white font-bold">Essais max :</span> {builderValues.max_attempt === 0 ? "Illimité" : builderValues.max_attempt}</p>
                                         <p><span className="text-white font-bold">Énoncé :</span></p>
-                                        <p className="text-sm text-white/50">
-                                            {builderValues.complet_ennounce || "Aucun énoncé"}
-                                        </p>
                                         <p><span className="text-white font-bold">Fichier :</span> {builderValues.file_to_download || "Aucun"}</p>
                                     </div>
                                 </div>

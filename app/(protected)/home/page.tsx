@@ -17,7 +17,7 @@ export default function Home() {
     useEffect(() => {
         if (sessionLoaded) return
         const getUser = async () => {
-            const res = await fetch("/api/session", {
+            const res = await fetch("/api/auth/session", {
                 method: "GET"
             })
             if (!res) {
