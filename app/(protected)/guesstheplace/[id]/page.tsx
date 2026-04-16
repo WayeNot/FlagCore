@@ -28,6 +28,7 @@ export default function Page() {
             if (!req.ok) {
                 const err = await req.json()
                 showNotif(err.err, "error")
+                router.refresh()
                 router.push(`/challenges`)
                 return
             }
@@ -38,6 +39,7 @@ export default function Page() {
     }, [params.id])
 
     const backChallenges = () => {
+        router.refresh()
         router.push(`/challenges`)
     }
 

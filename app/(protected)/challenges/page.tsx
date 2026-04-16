@@ -151,7 +151,7 @@ export default function Home() {
                     )}
                     <div className="flex items-center gap-3 m-8">
                         {[{ title: "Phishout", link: "/phishout" }].map((v, k) => (
-                            <button key={k} onClick={() => router.push(`/ctf${v.link}`)} className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
+                            <button key={k} onClick={() => { router.refresh(); router.push(`/ctf${v.link}`) } } className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
                         ))}
                     </div>
                     {addChallenge && (
@@ -307,7 +307,7 @@ export default function Home() {
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {easyGuessThePlace.map((v, k) => (
-                                        <button key={k} onClick={() => router.push(`/guesstheplace/${v.id}`)} className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
+                                        <button key={k} onClick={() => { router.refresh(); router.push(`/guesstheplace/${v.id}`) } } className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
                                     ))}
                                 </div>
                             )}
@@ -319,7 +319,7 @@ export default function Home() {
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {intermediaireGuessThePlace.map((v, k) => (
-                                        <button key={k} onClick={() => router.push(`/guesstheplace/${v.id}`)} className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
+                                        <button key={k} onClick={() => { router.refresh(); router.push(`/guesstheplace/${v.id}`) } } className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
                                     ))}
                                 </div>
                             )}
@@ -331,7 +331,7 @@ export default function Home() {
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {advancedGuessThePlace.map((v, k) => (
-                                        <button key={k} onClick={() => router.push(`/guesstheplace/${v.id}`)} className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
+                                        <button key={k} onClick={() => { router.refresh(); router.push(`/guesstheplace/${v.id}`) } } className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
                                     ))}
                                 </div>
                             )}
@@ -343,7 +343,7 @@ export default function Home() {
                             ) : (
                                 <div className="flex items-center gap-5">
                                     {expertGuessThePlace.map((v, k) => (
-                                        <button key={k} onClick={() => router.push(`/guesstheplace/${v.id}`)} className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
+                                        <button key={k} onClick={() => { router.refresh(); router.push(`/guesstheplace/${v.id}`) } } className="p-4 border border-gray-600 text-white/40 rounded-[7px] w-1/10 hover:text-[#1e1e2f] hover:bg-white/40 transition duration-500 cursor-pointer text-center">{v.title}</button>
                                     ))}
                                 </div>
                             )}

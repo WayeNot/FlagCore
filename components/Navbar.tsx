@@ -18,8 +18,10 @@ export default function Navbar() {
     const [userSession, setUserSession] = useState<User | null>(null)
     const [showAdminPanel, setShowAdminPanel] = useState(false)
 
-    useEffect(() => {
+    useEffect(() => {        
         async function getSession() {
+            console.log("Get Session NavBar !");
+            
             const res = await fetch("/api/auth/session")
             if (!res.ok) {
                 showNotif(await res.text())
@@ -31,8 +33,8 @@ export default function Navbar() {
     }, [])
 
     const handleLogout = async () => {
-        const res = await fetch("/api/auth/session", {
-            method: "DELETE",
+        const res = await fetch("/api/auth/account/logout", {
+            method: "POST",
         })
 
         if (!res.ok) {
@@ -40,6 +42,7 @@ export default function Navbar() {
             showNotif(err.error)
             return
         }
+        router.refresh()
         router.push("/accounts/login")
     }
 

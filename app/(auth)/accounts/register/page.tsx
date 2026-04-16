@@ -17,8 +17,7 @@ export default function Home() {
         return String(credentials.mail).toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
     }
 
-    const handleRegister = async (e: any) => {
-        e.preventDefault();
+    const handleRegister = async () => {
         if (!validateEmail()) return showNotif("Mauvais format d'adresse mail !", "error");
         const res = await fetch("/api/auth/account/register", {
             method: "POST",
@@ -31,10 +30,12 @@ export default function Home() {
             showNotif(err, "error");
             return
         }
+        router.refresh()
         router.push("/")
     }
 
     const handleRedirect = () => {
+        router.refresh()
         router.push("/accounts/login")
     }
 
@@ -50,7 +51,7 @@ export default function Home() {
                             <input value={credentials.mail} onChange={(e) => setCredentials({ ...credentials, mail: e.target.value })} className="border-2 border-white/40 rounded-[8px] w-4/5 text-white/80 p-[6px]" placeholder="Adresse mail" type="email" />
                             <input value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} className="border-2 border-white/40 rounded-[8px] w-4/5 text-white/80 p-[6px]" placeholder="Mot de passe" type="password" />
                         </div>
-                        <button onClick={(e) => handleRegister(e)} className="cursor-pointer flex items-center justify-center gap-3 border-2 border-white/40 text-white/40 rounded-[8px] w-4/5 p-[8px] hover:bg-white/40 hover:border-white/40 hover:text-white transition duration-500">Suivant<BsArrowRight /></button>
+                        <button onClick={() => handleRegister()} className="cursor-pointer flex items-center justify-center gap-3 border-2 border-white/40 text-white/40 rounded-[8px] w-4/5 p-[8px] hover:bg-white/40 hover:border-white/40 hover:text-white transition duration-500">Suivant<BsArrowRight /></button>
                         <p onClick={() => handleRedirect()} className="flex items-center gap-3 text-white/30 hover:underline transition duration-500 cursor-pointer hover:text-white"><MdAccountBox />Se connecter</p>
                     </div>
                 </div>

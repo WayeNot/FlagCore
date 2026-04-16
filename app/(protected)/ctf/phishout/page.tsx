@@ -53,7 +53,6 @@ export default function Home() {
 
     const handleValidate = (e: React.FormEvent) => {
         e.preventDefault();
-
         if (!currentFlag) {
             showNotif("Aucun flag donné", "error");
             return;

@@ -37,9 +37,7 @@ export default function AdminPanel({ closePanel }: { closePanel: () => void }) {
             showNotif(await req.text())
             return
         }
-        const data = await req.json()
-        console.log(data);
-        
+        const data = await req.json()        
         setInMaintenance(data)
     }
 

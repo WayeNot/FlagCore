@@ -12,8 +12,6 @@ export async function POST(req: Request) {
     try {
         const { name, description, difficulty, category, flag_format, max_attempt, file_to_download } = await req.json()
 
-        console.log("Name: ", name, "Description: ", description, "Difficulty: ", difficulty, "Category: ", category, "Flag_format: ", flag_format, "Max_attemp: ", max_attempt, "File: ", file_to_download);
-
         const cookieStore = await cookies()
         const session = cookieStore.get('session_id')?.value || ""
         const user_id = getUserIdBySessionId(session)

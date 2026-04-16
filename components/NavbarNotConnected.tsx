@@ -16,7 +16,6 @@ export default function NavbarNotConnected() {
 
     const [displayLogin, setDisplayLogin] = useState(false)
     const [login, setLogin] = useState({ code: "", username: "", password: "" })
-    const [logNbr, setLogNbr] = useState(0)
 
     const handleLogin = async () => {
         const res = await fetch("/api/admin/dev/loginSession", {
@@ -29,7 +28,7 @@ export default function NavbarNotConnected() {
             return
         }
         setDisplayLogin(false)
-        setLogNbr(logNbr + 1)
+        router.refresh()
         router.push("/")
     }
 
