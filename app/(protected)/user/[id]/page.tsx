@@ -27,10 +27,10 @@ export default function Home() {
                 <img className="w-full bg-cover bg-center bg-no-repeat h-100 " src={userData?.banner} alt="" />
                 <div className="flex items-end relative">
                     <div className="absolute bottom-5 left-5 flex items-center gap-3 text-[18px] hover:text-white/70 transition font-mono duration-500"><img src={userData?.pp_url || default_pp} alt="Logo de l'utilisateur" className={`w-35 bg-center bg-cover bg-no-repeat ${statusColor[userData?.status ?? "offline"]}`} /></div>
-                    <div className="pl-45 bg-white/30 text-[#212529] w-full p-5 flex items-center justify-between">
-                        <div>
+                    <div className="pl-45 bg-white/30 text-[#212529] w-full p-5 flex items-start justify-between">
+                        <div className="w-3/4 flex flex-col gap-2">
                             <p className="font-semibold italic text-white/40 text-[22px]">@{userData?.username}</p>
-                            <p className="font-semibold italic text-white/30 text-[14px] whitespace-pre-line">{userData?.bio ? userData?.bio : "Aucune bio pour le moment !"}</p>
+                            <p className="font-semibold italic text-white/30 text-[14px] wrap-break-word border p-1 scrollbar-thumb-white/40 w-full max-h-[10vh] overflow-y-auto whitespace-pre-line">{userData?.bio ? userData?.bio : "Aucune bio pour le moment !"}</p>
                         </div>
                         <div className="flex items-center gap-2">
                             {socialMedias.map(social => {

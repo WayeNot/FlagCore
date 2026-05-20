@@ -221,9 +221,9 @@ export default function CtfBuilder({ onClose }: any) {
                     </div>
                 </div >
             </div >
-            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={(creator) => setCreator(prev => [...prev, ...creator])} />}
-            {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={(files) => setFiles(prev => [...prev, ...files])} />}
-            {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={(flag) => setFlags(prev => [...prev, flag])} />}
+            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator(prev => [...prev, ...creator])} />}
+            {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={files => setFiles(prev => [...prev, ...files])} />}
+            {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={flag => setFlags(prev => [...prev, flag])} />}
         </div >
     );
 }

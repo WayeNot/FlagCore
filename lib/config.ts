@@ -64,9 +64,11 @@ export const Permissions = {
         }
     },
 
-    room: {
-        canCreateChallenge: "contributor.room.canCreate",
-    },
+    // room: {
+    //     canCreateRoom: "room.room.canCreate",
+    //     canModerateRoom: "room.canModerateRoom",
+    //     canCreateChallenge: "room.room.challenge.canCreate",
+    // },
 
     advanced: {
         administrator: "advanced.administrator"
