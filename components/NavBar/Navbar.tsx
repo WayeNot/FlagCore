@@ -96,16 +96,16 @@ export default function Navbar() {
                         <div className="flex items-center">
                             <Link href="/home" className="text-xl h-fit sm:text-2xl text-white/60 font-mono mr-12">FlagCore</Link>
                             <div className="hidden sm:flex items-center gap-5 text-white/40">
-                                <Link href="/home" className="hover:text-white/70 hover:text-underline border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono text-[20px]">Accueil</Link>
+                                <Link href="/home" className="hover:text-white/70 hover:text-underline border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono text-[20px]">Home</Link>
                                 <Link href="/tools" className="hover:text-white/70 border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono ml-5 text-[20px]">Tools</Link>
-                                <Link href="/challenges" className="hover:text-white/70 border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono ml-5 mr-5 text-[20px]">Nos challenges</Link>
+                                <Link href="/challenges" className="hover:text-white/70 border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono ml-5 text-[20px]">Challenges</Link>
+                                <Link href="/room" className="hover:text-white/70 border-2 border-[#212529] hover:border-t-2 hover:border-b-2 hover:border-t-white hover:border-b-white pt-1 pb-1 transition duration-500 font-mono ml-5 mr-5 text-[20px]">Rooms</Link>
                             </div>
                         </div>
                         <button onClick={() => setMenuOpen(!menuOpen)} className="sm:hidden text-white text-2xl">☰</button>
                         {Array.isArray(permissions) && permissions.includes(Permissions.advanced.administrator) && (
                             <div className="flex items-center gap-3">
                                 <Link href="/team"><GiTeamIdea className="hover:text-white/60 text-white/40 cursor-pointer text-2xl transition duration-500" /></Link>
-                                <Link href="/room"><RiGitRepositoryPrivateFill className="hover:text-white/60 text-white/40 cursor-pointer text-2xl transition duration-500"/></Link>
                             </div>
                         )}
                         <div className="hidden sm:flex items-center text-white/40">
