@@ -100,7 +100,7 @@ export default function CtfBuilder({ onClose }: any) {
                             <div className="text-[11px] text-white/40">General Information</div>
                             <div className="grid grid-cols-2 gap-2">
                                 <input className="p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-orange-500 transition" type="text" placeholder="Challenge title" value={builder.title} onChange={e => setBuilder({ ...builder, title: e.target.value })} />
-                                <input className="p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-orange-500 transition" type="text" placeholder="Flag format" value={builder.flag_format} onChange={e => setBuilder({ ...builder, flag_format: e.target.value })} />
+                                <input className="p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-orange-500 transition" type="text" placeholder="Flag format ( flag_format{} )" value={builder.flag_format} onChange={e => setBuilder({ ...builder, flag_format: e.target.value })} />
                             </div>
                         </div>
                         <div className="bg-[#363a3f] border border-white/5 p-3 space-y-2 w-full font-mono">
@@ -121,8 +121,8 @@ export default function CtfBuilder({ onClose }: any) {
                         <div className="bg-[#363a3f] border border-white/5 p-3 space-y-2">
                             <div className="text-[11px] text-white/40 font-mono">Challenge reward ( Coins / Points )</div>
                             <div className="grid grid-cols-2 gap-2 font-mono">
-                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Overall points reward" type="number" value={builder.coins || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, coins: Number(e.target.value) }) }} />
-                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Coin reward" type="number" value={builder.points || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, points: Number(e.target.value) }) }} />
+                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Coin reward" type="number" value={builder.coins || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, coins: Number(e.target.value) }) }} />
+                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Point reward" type="number" value={builder.points || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, points: Number(e.target.value) }) }} />
                             </div>
                         </div>
                         <div className="bg-[#363a3f] border border-white/5 p-3 space-y-2">
@@ -221,9 +221,9 @@ export default function CtfBuilder({ onClose }: any) {
                     </div>
                 </div >
             </div >
-            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={(creator) => setCreator(prev => [...prev, ...creator])} />}
-            {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={(files) => setFiles(prev => [...prev, ...files])} />}
-            {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={(flag) => setFlags(prev => [...prev, flag])} />}
+            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator(prev => [...prev, ...creator])} />}
+            {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={files => setFiles(prev => [...prev, ...files])} />}
+            {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={flag => setFlags(prev => [...prev, flag])} />}
         </div >
     );
 }
