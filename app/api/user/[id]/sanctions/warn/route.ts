@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
-    try {
+    try {        
         const { id } = await params;
         const data = await sql`SELECT * FROM sanctions WHERE type = 'warn' AND user_id = ${id} AND show_notif = TRUE ORDER BY id DESC LIMIT 1`;
         return NextResponse.json({ success: true, data: data[0] || null }, { status: 200 })

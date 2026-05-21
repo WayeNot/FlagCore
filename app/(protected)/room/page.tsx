@@ -1,5 +1,6 @@
 "use client"
 
+import RoomBuilder from "@/components/ui/room/RoomBuilder";
 import { useApi } from "@/hooks/useApi";
 import { Permissions } from "@/lib/config";
 import { useNavData } from "@/stores/store";
@@ -11,8 +12,13 @@ export default function Home() {
     const { user_id, permissions } = useNavData()
 
     const [allUserRoom, setAllUserRoom] = useState([]);
+    const [newRoom, setNewRoom] = useState([])
     const [roomCode, setRoomCode] = useState("")
     const [createRoom, setCreateRoom] = useState(false)
+
+    useEffect(() => {
+        console.log(allUserRoom);
+    }, [allUserRoom])
 
     const getRooms = async () => {
         const data = await call(`/api/user/rooms/${user_id}`)
@@ -27,6 +33,14 @@ export default function Home() {
         getRooms()
     }, [])
 
+    // Création de room ↓
+
+    const handleCreate = async (v: []) => {
+        // await call(`/api/room`, { method: "POST", body: JSON.stringify({ newRoom: v })}, [`The room ${v.title} has been successfully created !!`])
+        handleCreate(v)
+        setCreateRoom(false);
+    }
+
     return (
         <div>
             <h2 className="text-center text-white/60 text-[20px]">Système de room en développement !</h2>
@@ -39,7 +53,7 @@ export default function Home() {
                 <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-white/30"><span className="h-px w-6 bg-white/20" />Rooms active<span className="h-px flex-1 bg-white/10" /></div>
                 <div className="flex items-center gap-3 text-xs uppercase tracking-[0.2em] text-white/30"><span className="h-px w-6 bg-white/20" />Ancienne rooms<span className="h-px flex-1 bg-white/10" /></div>
             </div>
-            {/* {createRoom && <roomBuilder/>} */}
+            {createRoom && <RoomBuilder onCreate={v => handleCreate(v)} onClose={() => setCreateRoom(false)}/>}
         </div>
     )
 }

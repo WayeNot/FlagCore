@@ -43,6 +43,10 @@ export default function Home() {
     }
 
     const updateProfile = async () => {
+        if (!username || !mail || !bio || !status) {
+            showNotif("Missing field(s) !")
+            return
+        }
         await call(`/api/user/${user_id}/Account/updateProfile`, { method: "PATCH", body: JSON.stringify({ username: username, mail: mail, bio: bio, pp_url: pp_url, status: status }) })
         showNotif("Your information has been updated successfully!", "success")
     }
@@ -118,7 +122,10 @@ export default function Home() {
                                         </div>
                                         <div className="flex flex-col gap-2 w-full">
                                             <h2 className="font-bold text-white/60">Bio</h2>
-                                            <textarea className="p-2 w-full border border-white/10 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition duration-500 resize-none h-25" placeholder="Tell us a little bit about yourself" value={bio} onChange={e => updateBio(e.target.value)} />
+                                            <div className="w-full flex flex-col">
+                                                <textarea maxLength={150} className="p-2 w-full border border-white/10 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white transition duration-500 resize-none h-25" placeholder="Tell us a little bit about yourself" value={bio} onChange={e => updateBio(e.target.value)} />
+                                                <p className="text-white/40 flex justify-end">{bio.length} / 150</p>
+                                            </div>
                                         </div>
                                     </div>
                                     <button onClick={updateProfile} className="text-[12px] mt-5 w-fit font-semibold text-gray-300 p-2 border border-white/10 bg-white/5 hover:bg-white/10 hover:text-white transition duration-500 cursor-pointer">Save Changes</button>
