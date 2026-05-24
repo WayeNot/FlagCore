@@ -1,17 +1,23 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "@/lib/types";
 
 type InsertFileType = {
+    title: string;
     allMember: User[];
+    currentMember?: User[];
     onClose: () => void;
     onSubmit: (member: User[]) => void;
 }
 
-export default function InsertMember({ allMember, onClose, onSubmit }: InsertFileType) {
+export default function InsertMember({ title, allMember, currentMember, onClose, onSubmit }: InsertFileType) {
     const [member, setMember] = useState<User[]>([]);
     const [search, setSearch] = useState("")
+
+    useEffect(() => {        
+        setMember(currentMember || []);
+    }, [currentMember]);
 
     const canSubmit = member.length !== 0
 
@@ -25,7 +31,7 @@ export default function InsertMember({ allMember, onClose, onSubmit }: InsertFil
         });
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = () => {        
         onSubmit(member);
         setMember([]);
         onClose();
@@ -33,13 +39,11 @@ export default function InsertMember({ allMember, onClose, onSubmit }: InsertFil
 
     const filteredMember = allMember.filter(m => m.username.toLowerCase().includes(search.toLowerCase()))
 
-    // const isActive = member.includes()
-
     return (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center">
             <div className="bg-[#212529] w-140 p-5 text-white shadow-2xl border border-white/10 space-y-4">
                 <div className="text-center">
-                    <h2 className="text-lg font-bold font-mono">Team that created the challenge</h2>
+                    <h2 className="text-lg font-bold font-mono">{title}</h2>
                 </div>
                 <div className="flex flex-col gap-3">
                     <input type="text" className="p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-white/50 transition duration-500 w-full" placeholder="Search member" value={search} onChange={(e) => setSearch(e.target.value)} />

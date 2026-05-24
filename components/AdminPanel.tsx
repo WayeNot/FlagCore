@@ -706,7 +706,7 @@ export default function AdminPanel({ closePanel }: { closePanel: () => void }) {
                     {
                         Array.isArray(permissions) && (permissions.includes(Permissions.advanced.administrator) || permissions.includes(Permissions.panelAdmin.user.role)) && userTab === "Gestion des rôles" && (
                             <div className="flex items-center gap-2">
-                                <div className="bg-[#232336] rounded-lg p-2 w-fit">
+                                <div className="rounded-lg p-2 w-fit">
                                     <DropDown<number> isOnce={false} label="Rôles de l'utilisateur" value={tempUserRoles} isOpen={displayUserRoles} options={roles.map(r => ({ color: r.color, label: r.label, value: r.id })) as RoleOption[]} onToggle={() => setDisplayUserRoles(!displayUserRoles)} onSelect={(v) => setTempUserRoles(prev => { const exists = prev.some(r => r.value === v.value); return exists ? prev.filter(role => role.value !== v.value) : [...prev, v] })} />
                                 </div>
                                 <button onClick={handleSetRoles}>Enregistrer</button>

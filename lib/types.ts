@@ -86,6 +86,24 @@ export type User = {
     social_media: SocialMediaValues;
 }
 
+export type Room = {
+    id: number;
+    name: string;
+    description: string;
+    administrators: User[];
+    max_person: number;
+    created_at: string;
+    created_by: number;
+}
+
+export type RoomRelation = {
+    room_relation_id: number;
+    user_id: number;
+    can_access: boolean;
+}
+
+export type ActiveRoom = Room & RoomRelation;
+export type InactiveRoom = Room & RoomRelation;
 export type UserSessions = {
     session_id: string;
     user_id: number;

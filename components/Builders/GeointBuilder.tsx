@@ -9,7 +9,7 @@ import { useState } from "react";
 import { useNotif } from "@/components/NotifProvider";
 import { CiCircleRemove } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
-import CreateFlag from "../CreateFlag";
+import CreateFlag from "../challenges/CreateFlag";
 import { TiWarning } from "react-icons/ti";
 
 export default function GeointBuilder({ onClose }: any) {

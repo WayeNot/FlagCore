@@ -56,8 +56,8 @@ export default function Home() {
         showNotif("Social information has been updated successfully!", "success")
     }
 
-    const deleteAccount = async () => {
-        await call(`/api/user/${user_id}/Account/deleteAccount`, { method: "PATCH" }, ["Account disabled successfully"])
+    const disableAccount = async () => {
+        await call(`/api/user/${user_id}/Account/disableAccount`, { method: "PATCH" }, ["Account disabled successfully"])
         router.refresh()
         router.push("/accounts/login")
     }
@@ -143,10 +143,10 @@ export default function Home() {
                                     </div>
                                 </div>
                                 <div className="flex flex-col w-full bg-white/5 p-4">
-                                    <h2 className="flex items-center gap-3 text-[20px] font-bold text-white/40 mb-2"><MdOutlineDangerous className="text-[25px]" />Delete your account</h2>
+                                    <h2 className="flex items-center gap-3 text-[20px] font-bold text-white/40 mb-2"><MdOutlineDangerous className="text-[25px]" />Disable your account</h2>
                                     <div className="flex flex-col items-start gap-5">
-                                        <p className="text-white/40 text-[13px] italic">If you delete your account you will lose definitive access to it with no way of recovery. Your personal data and progress will be erased and lost as well as any ongoing subscription.</p>
-                                        <button onClick={deleteAccount} className="text-[12px] w-fit font-semibold text-gray-300 p-2 border border-white/10 bg-red-500/30 hover:bg-red-500/50 hover:text-white transition duration-500 cursor-pointer">Disable my account</button>
+                                        <p className="text-white/40 text-[13px] italic">If you disable your account you will lose definitive access to it with no way of recovery. Your personal data and progress will be erased and lost as well as any ongoing subscription.</p>
+                                        <button onClick={disableAccount} className="text-[12px] w-fit font-semibold text-gray-300 p-2 border border-white/10 bg-red-500/30 hover:bg-red-500/50 hover:text-white transition duration-500 cursor-pointer">Disable my account</button>
                                     </div>
                                 </div>
                             </div>

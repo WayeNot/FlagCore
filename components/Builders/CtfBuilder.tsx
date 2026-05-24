@@ -8,9 +8,9 @@ import { categoryBtn, difficultyBtn, NewCtfFlag, category, CtfBuilderState, ctf,
 import { IoMdClose } from "react-icons/io";
 import { MdOutlineDescription } from "react-icons/md";
 import { useNotif } from "@/components/NotifProvider";
-import CreateFlag from "../CreateFlag";
-import InsertFile from "../InsertFile";
-import InsertMember from "../InsertMember";
+import CreateFlag from "../challenges/CreateFlag";
+import InsertFile from "../challenges/InsertFile";
+import InsertMember from "../challenges/InsertMember";
 import { useApi } from "@/hooks/useApi";
 import { TiUserDeleteOutline } from "react-icons/ti";
 
@@ -83,7 +83,7 @@ export default function CtfBuilder({ onClose }: any) {
 
         const data = await res.json();
 
-        const sendChallenge = await call("/api/challenges?type=ctf", { method: "POST", body: JSON.stringify({ challenge: { ...builder, difficulty: builder.difficulty?.value, category: builder.category.map(cat => cat.value), creators: creator.map(cat => cat.user_id) }, flags, files: data.files })}, [`The challenge ${builder.title} has been successfully created !`])
+        await call("/api/challenges?type=ctf", { method: "POST", body: JSON.stringify({ challenge: { ...builder, difficulty: builder.difficulty?.value, category: builder.category.map(cat => cat.value), creators: creator.map(cat => cat.user_id) }, flags, files: data.files })}, [`The challenge ${builder.title} has been successfully created !`])
         resetBuilder();
     };
 
@@ -221,7 +221,7 @@ export default function CtfBuilder({ onClose }: any) {
                     </div>
                 </div >
             </div >
-            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator(prev => [...prev, ...creator])} />}
+            {displayCreator && <InsertMember title={"Team that created the challenge"} currentMember={creator} onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator([...creator])} />}
             {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={files => setFiles(prev => [...prev, ...files])} />}
             {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={flag => setFlags(prev => [...prev, flag])} />}
         </div >
