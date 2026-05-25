@@ -67,7 +67,17 @@ export default function Home() {
                                     {/*{credentials.is_anonymous ? <SiRedhat size={40} className="text-red-500/80 cursor-pointer w-1/5 p-1.5" onClick={() => setCredentials(prev => ({ ...prev, is_anonymous: false }))}/> : <SiRedhat size={40} className="text-green-500/80 cursor-pointer w-1/5 p-1.5" onClick={() => setCredentials(prev => ({ ...prev, is_anonymous: true }))} />}*/}
                                 </div>
                                 <input value={credentials.mail} onChange={e => { const value = e.target.value.replace(/\s/g, ""); setCredentials({ ...credentials, mail: value }) }} className="border-2 font-mono text-[20px] border-white/40 w-4/5 text-white/80 p-1.5 mt-1" placeholder="Mail address" type="email" maxLength={50} />
-                                <input value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} className="border-2 font-mono text-[20px] border-white/40 w-4/5 text-white/80 p-1.5  mt-1" placeholder="Password" type="password" maxLength={50} />
+                                <div className="w-full flex flex-col justify-center items-center">
+                                    <input value={credentials.password} onChange={(e) => setCredentials({ ...credentials, password: e.target.value })} className="border-2 font-mono text-[20px] border-white/40 w-4/5 text-white/80 p-1.5  mt-1" placeholder="Password" type="password" maxLength={50} />
+                                    <p>Minimum :</p>
+                                    <div className="w-4/5 flex flex-col items-center text-white/40 bg-white/30">
+                                        <p className={credentials.password.length >= 8 ? "text-green-500/60" : "text-red-500/60"}>8 caractères</p>
+                                        <p className={/[A-Z]/.test(credentials.password) ? "text-green-500/60" : "text-red-500/60"}>Une majuscule</p>
+                                        <p className={/[a-z]/.test(credentials.password) ? "text-green-500/60" : "text-red-500/60"}>Une minuscule</p>
+                                        <p className={/[\d]/.test(credentials.password) ? "text-green-500/60" : "text-red-500/60"}>Un chiffre</p>
+                                        <p className={/[.*+?^${}()|[\]\\]/g.test(credentials.password) ? "text-green-500/60" : "text-red-500/60"}>Un caractère spécial</p>
+                                    </div>
+                                </div>
                             </div>
                             <button onClick={(e) => handleRegister(e)} className="cursor-pointer flex items-center justify-center gap-3 border-2 border-white/40 text-white/40 w-4/5 p-2 font-mono text-[20px] hover:bg-white/40 hover:border-white/40 hover:text-white transition duration-500">Enter<BsArrowRight /></button>
                             <p onClick={handleRedirect} className="flex items-center gap-3 text-white/30 hover:underline font-mono text-[17px] transition duration-500 cursor-pointer hover:text-white pt-5"><MdAccountBox />Login</p>
