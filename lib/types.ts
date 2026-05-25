@@ -30,12 +30,41 @@ export const socialMedias: SocialMediaConfig[] = [
     { key: "website", label: "Personal website", icon: CgWebsite },
 ];
 
-export type RoleLabel = "owner" | "admin" | "dev" | "contributor" | "user" | "guest"
-
 export type transactions = "flag" | "geoint" | "daily" | "admin" | "penalty" | "shop"
 
 export type Difficulty = "Easy" | "intermediate" | "Advance" | "Expert"
 export type category = "Web" | "Crypto" | "Pwn" | "Reverse" | "Forensic" | "OSINT" | "Misc"
+
+export const difficultyReward = {
+    Easy: 10,
+    Intermediate: 20,
+    Advance: 35,
+    Expert: 50,
+} as const;
+
+export const categoryReward = {
+    Web: 0,
+    Crypto: 2,
+    Pwn: 4,
+    Reverse: 3,
+    Forensic: 3,
+    OSINT: 2,
+    Misc: 1
+} as const;
+
+export const flagDifficultyMultiplier = {
+    Easy: 1,
+    Intermediate: 1.2,
+    Advance: 1.5,
+    Expert: 2
+} as const;
+
+export const hintDifficultyMultiplier = {
+    Easy: 0.08,
+    Intermediate: 0.12,
+    Advance: 0.18,
+    Expert: 0.25
+} as const;
 
 export interface Option<T = string> {
     label: string;
@@ -51,9 +80,9 @@ export const statusBtn: Option<Status>[] = [
 ];
 
 export const difficultyBtn: Option<Difficulty>[] = [
-    { label: "Facile", value: "Easy", color: "text-green-400" },
-    { label: "Intermédiaire", value: "intermediate", color: "text-yellow-400" },
-    { label: "Avancé", value: "Advance", color: "text-yellow-600" },
+    { label: "Easy", value: "Easy", color: "text-green-400" },
+    { label: "Intermediate", value: "intermediate", color: "text-yellow-400" },
+    { label: "Advanced", value: "Advance", color: "text-yellow-600" },
     { label: "Expert", value: "Expert", color: "text-red-400" },
 ];
 
@@ -220,8 +249,8 @@ export interface flags {
     hint: string;
     hint_cost?: number;
     challenge_type: string;
-    coins: number;
     difficulty: string;
+    coins: number;
     points: number;
     hint_show: boolean;
     found: boolean;
@@ -235,8 +264,6 @@ export type GeointBuilderState = {
     difficulty: Option | null;
     flag_format: string;
     images: string[];
-    coins?: number;
-    points?: number;
 };
 
 // CTF Builder ↓
@@ -248,18 +275,13 @@ export type CtfBuilderState = {
     category: Option[];
     flag_format: string;
     files: File[];
-    coins?: number;
-    points?: number;
 };
 
 export type NewCtfFlag = {
     title: string;
-    difficulty: Option | null;
     description: string;
+    difficulty: Option | null;
     flag: string;
     flag_format: string;
     hint: string;
-    hint_cost?: number;
-    coins?: number;
-    points?: number;
 };

@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { MdAdminPanelSettings, MdExitToApp } from "react-icons/md"
 import { useRouter } from "next/navigation"
 
@@ -10,7 +10,6 @@ import { useNavData } from "@/stores/store"
 import AdminPanel from "../AdminPanel"
 import { default_pp, Permissions, statusColor, } from "@/lib/config"
 import { useApi } from "@/hooks/useApi"
-import { FaFire } from "react-icons/fa"
 import { SiOpslevel } from "react-icons/si"
 import { RiCoinsFill, RiGitRepositoryPrivateFill } from "react-icons/ri";
 import { IoWarning } from "react-icons/io5";
@@ -19,7 +18,7 @@ import ModalWarn from "../ui/sanction/ModalWarn";
 import { FaUserGear } from "react-icons/fa6";
 import { GiTeamIdea } from "react-icons/gi";
 import ModalText from "../ui/ModalText";
-
+import { IoIosNotifications } from "react-icons/io";
 
 export default function Navbar() {
     const { showNotif } = useNotif()
@@ -31,8 +30,8 @@ export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false)
     const [showAdminPanel, setShowAdminPanel] = useState(false)
 
-    const [ displayCoinInfo, SetDisplayCoinInfo] = useState(false)
-    const [ displayXpInfo, SetDisplayXpInfo] = useState(false)
+    const [displayCoinInfo, SetDisplayCoinInfo] = useState(false)
+    const [displayXpInfo, SetDisplayXpInfo] = useState(false)
 
     const [showWarn, setShowWarn] = useState(false)
 
@@ -105,10 +104,11 @@ export default function Navbar() {
                         {Array.isArray(permissions) && permissions.includes(Permissions.advanced.administrator) && (
                             <div className="flex items-center gap-3">
                                 <Link href="/team"><GiTeamIdea className="hover:text-white/60 text-white/40 cursor-pointer text-2xl transition duration-500" /></Link>
-                                <Link href="/room"><RiGitRepositoryPrivateFill className="hover:text-white/60 text-white/40 cursor-pointer text-2xl transition duration-500"/></Link>
+                                <Link href="/room"><RiGitRepositoryPrivateFill className="hover:text-white/60 text-white/40 cursor-pointer text-2xl transition duration-500" /></Link>
                             </div>
                         )}
                         <div className="hidden sm:flex items-center text-white/40">
+                            <IoIosNotifications className="font-bold text-white/40 mr-6 hover:text-white/60 cursor-pointer transition duration-500" size={25} />
                             <div className="flex items-center gap-5 font-bold text-white/40 mr-6">
                                 <Link href={`/user/@${username}`} className="flex items-center gap-3 text-[18px] hover:text-white/70 transition font-mono duration-500"><img src={pp_url || default_pp} alt="Logo de l'utilisateur" className={`w-10 bg-center bg-cover bg-no-repeat ${statusColor[status ?? "offline"]}`} /><span className="mx-2">-</span>{username}</Link>
                             </div>

@@ -13,13 +13,13 @@ type CreateFlagType = {
 export default function CreateFlag({ onClose, onSubmit }: CreateFlagType) {
     const { showNotif } = useNotif()
 
-    const [newFlag, setNewFlag] = useState<NewCtfFlag>({ title: "", difficulty: null, description: "", flag: "", flag_format: "", hint: "", hint_cost: undefined, coins: undefined, points: undefined });
+    const [newFlag, setNewFlag] = useState<NewCtfFlag>({ title: "", difficulty: null, description: "", flag: "", flag_format: "", hint: "" });
     const [settingsNewFlag, setSettingsNewFlag] = useState({ difficulty: false });
 
     const canSubmit = newFlag.title && newFlag.difficulty && newFlag.description && newFlag.flag && newFlag.flag_format
 
     const resetForms = () => {
-        setNewFlag({ title: "", difficulty: null, description: "", flag: "", flag_format: "", hint: "", hint_cost: undefined, coins: undefined, points: undefined });
+        setNewFlag({ title: "", difficulty: null, description: "", flag: "", flag_format: "", hint: "" });
         setSettingsNewFlag(prev => ({ ...prev, difficulty: false }));
     }
 
@@ -30,25 +30,20 @@ export default function CreateFlag({ onClose, onSubmit }: CreateFlagType) {
                     <h2 className="text-xl font-bold font-mono">Creating a flag</h2>
                     <p className="text-white/40 text-xs font-mono">Configure each flag to your liking</p>
                 </div>
-                <div className="bg-[#363a3f] px-3 py-2 text-xs text-white/60">Expected flag format : <span className="text-orange-400 font-semibold">FirstName_LastName</span></div>
                 <div className="space-y-2">
                     <div className="grid grid-cols-2 gap-2">
                         <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Title" value={newFlag.title} onChange={e => setNewFlag({ ...newFlag, title: e.target.value })} />
                         <DropDown isOnce label="Difficulty" value={newFlag.difficulty} isOpen={settingsNewFlag.difficulty} options={difficultyBtn} onToggle={() => setSettingsNewFlag(s => ({ ...s, difficulty: !s.difficulty }))} onSelect={v => { setNewFlag({ ...newFlag, difficulty: v }); setSettingsNewFlag({ ...settingsNewFlag, difficulty: false }) }} />
                     </div>
-                    <textarea className="w-full p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 resize-none h-20 font-mono" placeholder="Description" value={newFlag.description} onChange={e => setNewFlag({ ...newFlag, description: e.target.value })} />
+                    <div className="flex flex-col">
+                        <textarea maxLength={100} className="w-full p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 resize-none h-20 font-mono" placeholder="Description" value={newFlag.description} onChange={e => setNewFlag({ ...newFlag, description: e.target.value })} />
+                        <p className="text-white/40 flex justify-end text-[14px]">{newFlag.description.length} / 100</p>
+                    </div>
                     <div className="grid grid-cols-2 gap-2">
-                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Format (FirstName_LastName)" value={newFlag.flag_format} onChange={e => setNewFlag({ ...newFlag, flag_format: e.target.value })} />
+                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Flag Format (Flag_Format)" value={newFlag.flag_format} onChange={e => setNewFlag({ ...newFlag, flag_format: e.target.value })} />
                         <input className="w-full p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Flag expected" value={newFlag.flag} onChange={e => setNewFlag({ ...newFlag, flag: e.target.value })} />
                     </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Hint" value={newFlag.hint} onChange={e => setNewFlag({ ...newFlag, hint: e.target.value })} />
-                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Cost hint" value={newFlag.hint_cost ?? ""} type="number" onChange={e => {if(Number(e.target.value) > 9999) return; setNewFlag({ ...newFlag, hint_cost: Number(e.target.value) })}} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Coins" value={newFlag.coins ?? ""} type="number" onChange={e => {if(Number(e.target.value) > 9999) return; setNewFlag({ ...newFlag, coins: Number(e.target.value) })}} />
-                        <input className="p-2 bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Points" value={newFlag.points ?? ""} type="number" onChange={e => {if(Number(e.target.value) > 9999) return; setNewFlag({ ...newFlag, points: Number(e.target.value) })}} />
-                    </div>
+                    <input className="p-2 w-full bg-[#363a3f] text-sm outline-none focus:ring-1 focus:ring-orange-500 font-mono" placeholder="Hint" value={newFlag.hint} onChange={e => setNewFlag({ ...newFlag, hint: e.target.value })} />
                 </div>
                 <div className="flex gap-2 pt-1">
                     <button onClick={onClose} className="bg-red-500/10 hover:bg-red-500/20 text-red-300 text-xs py-2 transition duration-500 cursor-pointer font-mono w-60">Back</button>

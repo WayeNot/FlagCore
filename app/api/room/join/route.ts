@@ -26,9 +26,9 @@ export async function POST(req: Request) {
         if (alreadyJoin[0] && alreadyJoin[0].can_access === true) return NextResponse.json({ success: false, error: "You are already in this room !" }, { status: 400 })
 
         const max_user = await sql`SELECT * FROM rooms WHERE id = ${room_id} LIMIT 1`;
-        const current_users = await sql`SELECT COUNT(id) FROM rooms_relation WHERE room_id = ${room_id} LIMIT 1`;
+        const current_users = await sql`SELECT COUNT(id) FROM rooms_relation WHERE room_id = ${room_id} LIMIT 1`;        
 
-        if (max_user[0].max_person !== 0 && current_users[0].count + 1 > max_user[0].max_person) return NextResponse.json({ success: false, error: "This room is already full !" }, { status: 400 })
+        if (max_user[0].max_person !== 0 && Number(current_users[0].count) + 1 > max_user[0].max_person) return NextResponse.json({ success: false, error: "This room is already full !" }, { status: 400 })
 
         if (alreadyJoin.length) {
             alreadyJoin[0].can_access === true && await sql`UPDATE rooms_relation SET can_access = FALSE WHERE room_id = ${room_id} AND user_id = ${user_id}`
