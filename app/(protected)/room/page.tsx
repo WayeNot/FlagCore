@@ -46,7 +46,7 @@ export default function Home() {
     return (
         <div>
             <div className="border-t-2 border-b-2 my-15 border-white/30">
-                <h2 className="text-center text-white/30 text-[35px] font-mono mt-10 mb-15">To access a room, please enter your access code :</h2>
+                <h2 className="text-center text-white/50 text-[35px] font-mono mt-10 mb-15">To access a room, please enter your access code :</h2>
                 <div className="flex gap-10 w-1/3 mb-20 mx-auto">
                     <input type="text" className="w-full border-2 font-mono text-[20px] border-white/40 text-white/80 p-1.5 placeholder:text-white/25" placeholder="Insert the room code" value={roomCode} onChange={(e) => setRoomCode(e.target.value)} />
                     <button onClick={joinRoom} className="cursor-pointer text-[20px] flex p-2 items-center justify-center gap-3 border-2 border-white/40 text-white/40 font-mono hover:bg-white/40 hover:border-white/40 hover:text-white transition duration-500">JOIN</button>
@@ -56,12 +56,12 @@ export default function Home() {
             <div className="space-y-4 mt-5 flex flex-col gap-5 font-mono">            
                 <div className="flex mx-auto gap-30">
                     <div className="flex-col items-center gap-3 text-[20px] uppercase border-2 border-white/40 tracking-[0.2em] text-white/30">
-                        <h2 className="flex items-center gap-6 mx-50 p-2"><VscCircleLargeFilled size={15} className="text-green-400" />Active Rooms</h2>
+                        <h2 className="flex items-center gap-6 mx-50 p-2 font-bold"><VscCircleLargeFilled size={15} className="text-green-400" />Active Rooms</h2>
                         <div className="border-t-2"></div>
                         <p>test</p>
                     </div>
                     <div className="flex-col items-cente gap-3 text-[20px] uppercase border-2 border-white/40 tracking-[0.2em] text-white/30">
-                        <h2 className="flex items-center gap-6 mx-50 p-2"><VscCircleLargeFilled size={15} className="text-red-400" />Old Rooms</h2>
+                        <h2 className="flex items-center gap-6 mx-50 p-2 font-bold"><VscCircleLargeFilled size={15} className="text-red-400" />Old Rooms</h2>
                         <div className="border-t-2"></div>
                         <p>test</p>
                     </div>
