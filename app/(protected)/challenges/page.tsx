@@ -7,8 +7,8 @@ import { useApi } from "@/hooks/useApi";
 
 import { ctf, geoint } from "@/lib/types";
 
-import CtfBuilder from "@/components/challenges/ctf/CtfBuilder";
-import GeointBuilder from "@/components/challenges/geoint/GeointBuilder";
+import CtfBuilder from "@/components/Builders/CtfBuilder";
+import GeointBuilder from "@/components/Builders/GeointBuilder";
 
 import HomeTabs from "@/components/challenges/home/HomeTabs";
 import CreateButtons from "@/components/challenges/home/CreateButtons";

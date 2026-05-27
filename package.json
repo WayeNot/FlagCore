@@ -16,6 +16,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^3.0.3",
+    "express": "^5.2.1",
     "framer-motion": "^12.38.0",
     "js-cookie": "^3.0.5",
     "leaflet": "^1.9.4",
@@ -27,9 +28,15 @@
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "react-icons": "^5.6.0",
+<<<<<<< HEAD
     "react-leaflet": "^5.0.0",
+=======
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+>>>>>>> ded111de9a18c6e3512cbe7921dee4c1c5b45b80
     "tsx": "^4.21.0",
     "typewriter-effect": "^2.22.0",
+    "uuid": "^14.0.0",
     "zustand": "^5.0.12"
   },
   "devDependencies": {

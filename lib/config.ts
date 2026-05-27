@@ -66,6 +66,8 @@ export const Permissions = {
 
     room: {
         canCreateRoom: "room.canCreate",
+        canEditRoom: "room.canEdit",
+        canManageUser: "room.canManageUser",
         canModerateRoom: "room.canModerateRoom",
         canCreateChallenge: "room.challenge.canCreate",
     },

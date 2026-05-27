@@ -4,13 +4,12 @@ import { FaFlag } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 import DropDown from "@/components/ui/DropDown";
-import { categoryBtn, difficultyBtn, NewCtfFlag, category, CtfBuilderState, ctf, User } from "@/lib/types";
+import { categoryBtn, difficultyBtn, NewCtfFlag, CtfBuilderState, User } from "@/lib/types";
 import { IoMdClose } from "react-icons/io";
-import { MdOutlineDescription } from "react-icons/md";
 import { useNotif } from "@/components/NotifProvider";
-import CreateFlag from "../CreateFlag";
-import InsertFile from "../InsertFile";
-import InsertMember from "../InsertMember";
+import CreateFlag from "../challenges/CreateFlag";
+import InsertFile from "../challenges/InsertFile";
+import InsertMember from "../challenges/InsertMember";
 import { useApi } from "@/hooks/useApi";
 import { TiUserDeleteOutline } from "react-icons/ti";
 
@@ -18,7 +17,7 @@ export default function CtfBuilder({ onClose }: any) {
     const { showNotif } = useNotif()
     const { call } = useApi();
 
-    const [builder, setBuilder] = useState<CtfBuilderState>({ title: "", description: "", difficulty: null, category: [], flag_format: "", coins: undefined, points: undefined, files: [] });
+    const [builder, setBuilder] = useState<CtfBuilderState>({ title: "", description: "", difficulty: null, category: [], flag_format: "", files: [] });
     const [flags, setFlags] = useState<NewCtfFlag[]>([])
     const [files, setFiles] = useState<File[]>([]);
     const [creator, setCreator] = useState<User[]>([]);
@@ -42,7 +41,7 @@ export default function CtfBuilder({ onClose }: any) {
     }, [displayCreator === true])
 
     const resetBuilder = () => {
-        setBuilder({ title: "", description: "", difficulty: null, category: [], flag_format: "", coins: undefined, points: undefined, files: [] })
+        setBuilder({ title: "", description: "", difficulty: null, category: [], flag_format: "", files: [] })
         setFlags([])
         setFiles([])
         setSettings({ difficulty: false, category: false })
@@ -83,7 +82,7 @@ export default function CtfBuilder({ onClose }: any) {
 
         const data = await res.json();
 
-        const sendChallenge = await call("/api/challenges?type=ctf", { method: "POST", body: JSON.stringify({ challenge: { ...builder, difficulty: builder.difficulty?.value, category: builder.category.map(cat => cat.value), creators: creator.map(cat => cat.user_id) }, flags, files: data.files })}, [`The challenge ${builder.title} has been successfully created !`])
+        await call("/api/challenges?type=ctf", { method: "POST", body: JSON.stringify({ challenge: { ...builder, difficulty: builder.difficulty?.value, category: builder.category.map(cat => cat.value), creators: creator.map(cat => cat.user_id) }, flags, files: data.files })}, [`The challenge ${builder.title} has been successfully created !`])
         resetBuilder();
     };
 
@@ -119,13 +118,6 @@ export default function CtfBuilder({ onClose }: any) {
                             </div>
                         </div>
                         <div className="bg-[#363a3f] border border-white/5 p-3 space-y-2">
-                            <div className="text-[11px] text-white/40 font-mono">Challenge reward ( Coins / Points )</div>
-                            <div className="grid grid-cols-2 gap-2 font-mono">
-                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Coin reward" type="number" value={builder.coins || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, coins: Number(e.target.value) }) }} />
-                                <input className="w-full p-2 bg-[#212529] text-xs outline-none border border-white/5 focus:border-green-500 transition" placeholder="Point reward" type="number" value={builder.points || ""} onChange={e => { if (Number(e.target.value) > 9999) return; setBuilder({ ...builder, points: Number(e.target.value) }) }} />
-                            </div>
-                        </div>
-                        <div className="bg-[#363a3f] border border-white/5 p-3 space-y-2">
                             <div className="flex items-center gap-2 font-mono">
                                 <button onClick={() => setDisplayCreator(true)} className="w-full p-2 bg-[#212529] hover:bg-[#212529]/60 text-xs outline-none border border-white/5 transition duration-500 cursor-pointer">Creators</button>
                                 <button onClick={() => setDisplayFiles(true)} className="w-full p-2 bg-[#212529] hover:bg-[#212529]/60 text-xs outline-none border border-white/5 transition duration-500 cursor-pointer">Files</button>
@@ -155,7 +147,7 @@ export default function CtfBuilder({ onClose }: any) {
                         <div className="bg-[#363a3f] p-3 border border-white/5 col-span-2">
                             <div className="flex items-center gap-2 text-white/50 font-mono"><span>Description</span></div>
                             <div className="max-h-20 w-full overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                                <p className="text-white/60 w-full text-sm leading-relaxed wrap-break-word whitespace-pre-line font-mono">{builder.description || "Aucune description"}</p>
+                                <p className="text-white w-full text-sm leading-relaxed wrap-break-word whitespace-pre-line font-mono">{builder.description || "Aucune description"}</p>
                             </div>
                         </div>
                         <div className="bg-[#363a3f] p-3 border border-white/5">
@@ -165,14 +157,6 @@ export default function CtfBuilder({ onClose }: any) {
                         <div className="bg-[#363a3f] p-3 border border-white/5 flex flex-col gap-2">
                             <div className="flex items-center gap-2 text-white/50 font-mono"><span>Categories</span></div>
                             <p className="text-white font-mono flex items-center gap-2 flex-wrap">{builder.category?.length ? builder.category.map((v, k) => <span key={k} className={`text-[12px] px-2 py-0.5 bg-green-500/10 ${v.color}`}>{v.value}</span>) : "N/A"}</p>
-                        </div>
-                        <div className="bg-[#363a3f] p-3 border border-white/5">
-                            <div className="flex items-center gap-2 text-white/50 font-mono"><span>Reward ( coins )</span></div>
-                            <p className="text-green-400 font-semibold font-mono">{builder.coins || "0"}</p>
-                        </div>
-                        <div className="bg-[#363a3f] p-3 border border-white/5">
-                            <div className="flex items-center gap-2 text-white/50 font-mono"><span>Reward ( point )</span></div>
-                            <p className="text-green-400 font-semibold font-mono">{builder.points || "0"}</p>
                         </div>
                     </div >
                     <div className="space-y-2">
@@ -221,7 +205,7 @@ export default function CtfBuilder({ onClose }: any) {
                     </div>
                 </div >
             </div >
-            {displayCreator && <InsertMember onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator(prev => [...prev, ...creator])} />}
+            {displayCreator && <InsertMember title={"Team that created the challenge"} currentMember={creator} onClose={() => setDisplayCreator(false)} allMember={allUser} onSubmit={creator => setCreator([...creator])} />}
             {displayFiles && <InsertFile onClose={() => setDisplayFiles(false)} onSubmit={files => setFiles(prev => [...prev, ...files])} />}
             {displayFlags && <CreateFlag onClose={() => setDisplayFlags(false)} onSubmit={flag => setFlags(prev => [...prev, flag])} />}
         </div >

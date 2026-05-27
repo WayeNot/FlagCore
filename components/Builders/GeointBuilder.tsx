@@ -9,12 +9,12 @@ import { useState } from "react";
 import { useNotif } from "@/components/NotifProvider";
 import { CiCircleRemove } from "react-icons/ci";
 import { AiFillDelete } from "react-icons/ai";
-import CreateFlag from "../CreateFlag";
+import CreateFlag from "../challenges/CreateFlag";
 import { TiWarning } from "react-icons/ti";
 
 export default function GeointBuilder({ onClose }: any) {
     const { showNotif } = useNotif()
-    const [builder, setBuilder] = useState<GeointBuilderState>({ title: "", description: "", difficulty: null, flag_format: "", coins: undefined, points: undefined, images: [] });
+    const [builder, setBuilder] = useState<GeointBuilderState>({ title: "", description: "", difficulty: null, flag_format: "", images: [] });
     const [flags, setFlags] = useState<NewCtfFlag[]>([])
     const [difficultyOpen, setDifficultyOpen] = useState(false);
     const canCreate = builder.title && builder.description && builder.difficulty && builder.flag_format && builder.images.length > 0 && flags.length > 0;
@@ -72,20 +72,6 @@ export default function GeointBuilder({ onClose }: any) {
                             </div>
                         </div>
                         <div className="flex items-center justify-between gap-2 w-full bg-[#363a3f] border border-white/5 p-3">
-                            <div className="w-1/2 flex flex-col gap-2">
-                                <div className="text-white/60 text-xs font-mono">Points</div>
-                                <div className="relative">
-                                    <input type="number" placeholder=" " className="peer w-full bg-[#212529] p-2 text-sm outline-none border border-white/5 focus:border-green-500" value={builder.points ?? ""} onChange={e => handleChange("points", Number(e.target.value))} />
-                                </div>
-                            </div>
-                            <div className="w-1/2 flex flex-col gap-2">
-                                <div className="text-white/60 text-xs font-mono">Coins</div>
-                                <div className="relative">
-                                    <input type="number" placeholder=" " className="peer w-full bg-[#212529] p-2 text-sm outline-none border border-white/5 focus:border-green-500" value={builder.coins ?? ""} onChange={e => handleChange("coins", Number(e.target.value))} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between gap-2 w-full bg-[#363a3f] border border-white/5 p-3">
                             <div className="w-full flex flex-col gap-2">
                                 <div className="text-white/60 text-xs font-mono">Challenge description</div>
                                 <div className="relative">
@@ -133,11 +119,6 @@ export default function GeointBuilder({ onClose }: any) {
                         <div className="bg-[#363a3f] border border-white/10 p-3">
                             <p className="text-white/40 text-xs font-mono">Difficulty</p>
                             <p className="text-orange-300 font-medium">{builder.difficulty?.label || "N/A"}</p>
-                        </div>
-
-                        <div className="bg-[#363a3f] border border-white/10 p-3">
-                            <p className="text-white/40 text-xs font-mono">Points</p>
-                            <p className="text-orange-300 font-medium">{builder.points || 0}</p>
                         </div>
                         <div className="bg-[#363a3f] border border-white/10 p-3">
                             <p className="text-white/40 text-xs font-mono">Flag format</p>
