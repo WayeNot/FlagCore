@@ -14,6 +14,8 @@ export default function Home() {
     const [userData, setUserData] = useState<User>(); // user_id | username | bio | email | role | created_at | coins | points | pp_url | status | is_online | is_anonymous | banner
 
     const getUserData = async () => {
+        console.log(params.id);
+        
         const data = await call(`/api/user/${params.id}`)
         setUserData(data.data)
     }
